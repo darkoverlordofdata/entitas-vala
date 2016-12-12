@@ -1,9 +1,9 @@
 # ShmupWars - Vala
 
-Revisiting.
+Revisited
 
-I've factored GLib.Object out of the inheritance chain. Gnome calls these 'Non-Object classes'.
 
-My game objects have no need for GObject capabilities at this time.
+this poc has come to a conclusion, the status is positive.
 
- 
+
+Move to https://github.com/darkoverlordofdata/entitas-Vala for continued development
