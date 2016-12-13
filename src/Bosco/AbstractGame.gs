@@ -1,5 +1,6 @@
 [indent=4]
 uses SDL
+uses SDLMixer    
 uses SDL.Video
 uses SDLTTF
 
@@ -76,7 +77,7 @@ namespace Bosco
                         _fpsSprite = Sprite.fromRenderedText(renderer, _fpsFont, "60.00", {250, 250, 250})
                         _fpsSprite.centered = false
 
-                stdout.printf("%f\n", (_t2-_t1))
+                //stdout.printf("%f\n", (_t2-_t1))
 
             Dispose()
             return 0
@@ -137,6 +138,10 @@ namespace Bosco
             if _fpsFont == null
                 print "Failed to load font! SDL Error: %s", SDL.get_error()
 
-            return true
+            // 0x1010
 
+            if SDLMixer.open(22050, Audio.AudioFormat.S16LSB, 2, 4096) == -1
+                print "SDL_mixer unagle to initialize! SDL Error: %s", SDL.get_error()
+
+            return true
 

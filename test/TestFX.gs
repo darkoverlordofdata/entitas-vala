@@ -1,6 +1,6 @@
 [indent=4]
 uses
-    Utils
+    //Utils
     Bosco.ECS
 
 init
@@ -63,7 +63,8 @@ class TestExample : Bunny.Vunny
     construct()
         describe("TestExample")
         test("Generic Array", test_array)
-        test("Match 1 2 3", test_match)
+
+        test("Match 1 2 3", test_array)
         test("Create world", test_world)
         test("Make player entity", test_player)
         test("Add player components", test_component)

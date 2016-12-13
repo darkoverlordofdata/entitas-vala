@@ -1,104 +1,182 @@
+/**
+ *
+ *     ___
+ *    | _ )_  _ _ _  _ _ _  _
+ *    | _ \ || | ' \| ' \ || |
+ *    |___/\_,_|_||_|_||_\_, |
+ *     __   __           |__/
+ *     \ \ / /  _ _ _  _ _ _  _
+ *      \ V / || | ' \| ' \ || |
+ *       \_/ \_,_|_||_|_||_\_, |
+ *                         |__/
+ *
+ *
+ *        /\ /\
+ *        \/_\/
+ *        ('.')
+ *       (     )
+ *
+ *
+ * Simple Testing Framework for Vala/Genie
+ *    by Dark Overlord of Data
+ *
+ *
+ *
+ *
+ *    Copyright 2016 Bruce Davidson
+ */
 [indent=4]
-uses
-    Bosco
+const __bunny__:string = """
+  bunny vunny test suite v0.0.1
 
+          /\ /\
+          \/_\/
+          ('.')
+         (     )
 
-init
-    stdout.printf("Application started\n")
-    var game = new Game()
-    game.OnExecute()
+    It's no ordinary rabbit
 
-class Game : AbstractGame
+"""
 
-    const WALKING_ANIMATION_FRAMES:int = 4
-    const SCREEN_WIDTH:int = 640
-    const SCREEN_HEIGHT:int = 480
-    frame:int = 0
+namespace Bunny
+    /** @type Signature of Test function */
+    delegate DelegateTest()
+    delegate DelegateFunc():bool
 
-    spriteClips:array of SDL.Rectangle = new array of SDL.Rectangle[4]
-    spriteSheetTexture:Texture
-    backgroundTexture:Texture
-
-    construct()
-        name = "GameFoo"
-        width = SCREEN_WIDTH
-        height = SCREEN_HEIGHT
-        running = true
 
     /**
-     *  OnLoop
+     *    Vunny - Vala Unit Testing
+     * inspired by Chai
      *
-     * Process the physics
+     *  GObject is a requirement to provice init/final blocks for test
      */
-    def override OnLoop()
-        frame++
-        if frame / WALKING_ANIMATION_FRAMES >= WALKING_ANIMATION_FRAMES
-            frame = 0
+    class Vunny : Object
+        passed:int=0
+        failed:int=0
+        name:string = ""
+        should:Should
+        tests:list of Test = new list of Test
+
+        construct()
+            should = new Should()
+
+        def describe(name:string)
+            this.name = name
+
+        def expect(actual:Value):Expectation
+            return new Expectation(actual)
+
+        def test(name:string, proc:DelegateTest)
+            tests.add(new Test(name, proc))
+
+        def it(name:string, func:DelegateFunc)
+            tests.add(new Test.withFunc(name, func))
+
+        def run()
+
+            passed = 0
+            failed = 0
+
+            print __bunny__
+            print "\t%s\n---------------------------------", name
+            for test in tests
+                if test.hasReturn
+                  if test.func()
+                      passed++
+                      print "PASS <=> %s", test.name
+                  else
+                      failed++
+                      print "FAIL <=> %s", test.name
+                else
+                  test.proc()
+                  if Expectation.result
+                      passed++
+                      print "PASS <=> %s", test.name
+                  else
+                      failed++
+                      print "FAIL <=> %s", test.name
+
+            print "---------------------------------"
+            print "    <====> Pass: %d", passed
+            print "    <====> Fail: %d\n\n\033[0m", failed
 
     /**
-     *  OnRender
-     *
-     * Render the screen
+     *    Expectation
      */
-    def override OnRender()
-        renderer.set_draw_color(0xFF, 0xFF, 0xFF, SDL.Alpha.OPAQUE)
-        renderer.clear()
-
-        var currentClip = spriteClips[frame / WALKING_ANIMATION_FRAMES]
-        spriteSheetTexture.render(renderer, (SCREEN_WIDTH - currentClip.w) / 2, (SCREEN_HEIGHT - currentClip.h) / 2, currentClip)
-        backgroundTexture.render(renderer, 0, 0)
-        renderer.present()
+    class Expectation
+        actual:Value
+        to:To
+        result:static bool
+        construct(actual:Value)
+            this.actual = actual
+            to = new To(this)
 
     /**
-     *  OnInit
-     *
-     * load assets
+     *    Test
+     *    name & func of each test
      */
-    def override OnInit():bool
-        if super.OnInit()
-
-            var imgInitFlags = SDLImage.InitFlags.PNG
-            var initResult = SDLImage.init(imgInitFlags)
-            if (initResult & imgInitFlags) != imgInitFlags
-                stdout.printf("SDL_image could not initialize! SDL_image Error: %s\n", SDLImage.get_error())
-                return false
-
-            spriteSheetTexture = Texture.fromFile(renderer, "resources/foo.png")
-            if spriteSheetTexture == null
-                stdout.puts("Failed to load walking animation texture!\n")
-                return false
-            else
-                spriteClips[0] = {0, 0, 64, 205}
-                spriteClips[1] = {64, 0, 64, 205}
-                spriteClips[2] = {128, 0, 64, 205}
-                spriteClips[3] = {196, 0, 64, 205}
-
-            backgroundTexture = Texture.fromFile(renderer, "resources/background.png")
-            if backgroundTexture == null
-                stdout.puts("Failed to load background texture image!\n")
-                return false
-
-        return true
+    class Test
+        name: string
+        result: bool
+        hasReturn: bool
+        proc: unowned DelegateTest
+        func: unowned DelegateFunc
+        construct(name:string, proc:DelegateTest)
+            this.name = name
+            this.proc = proc
+            this.result = false
+            this.hasReturn = false
+        construct withFunc(name:string, func:DelegateFunc)
+            this.name = name
+            this.func = func
+            this.result = false
+            this.hasReturn = true
 
     /**
-     *  OnEvent
-     *
-     * Handle events
+     *    To
      */
-    def override OnEvent(e:SDL.Event)
-        if e.type == SDL.EventType.QUIT
-            running = false
+    class To
+        parent: Expectation
+        should: Should
+        invert: bool = false
+        construct(parent:Expectation)
+            this.parent = parent
+            should = new Should()
+
+        // def @not():To
+        prop @not: To
+            get
+                invert = true
+                return this
+
+        def equal(expected:Value)
+            var test = should.eq(parent.actual, expected)
+            Expectation.result = invert ? !test : test
+
+        def gt(expected:Value)
+            var test = should.gt(parent.actual.get_string(), expected.get_string())
+            Expectation.result = invert ? !test : test
+
+        def ge(expected:Value)
+            var test = should.ge(parent.actual, expected)
+            Expectation.result = invert ? !test : test
+
+        def lt(expected:Value)
+            var test = should.lt(parent.actual, expected)
+            Expectation.result = invert ? !test : test
+
+        def le(expected:Value)
+            var test = should.le(parent.actual, expected)
+            Expectation.result = invert ? !test : test
+
+        def match(expected:Value)
+            var test = should.match(parent.actual.get_string(), expected.get_string())
+            Expectation.result = invert ? !test : test
+
 
     /**
-     *  OnCleanup
-     *
-     * release assets
+     *    Should
      */
-    def override OnCleanup()
-        SDL.quit()
-        SDLImage.quit()
-
-
     class Should
         def match(actual:string, expected:string):bool
             var result = false
