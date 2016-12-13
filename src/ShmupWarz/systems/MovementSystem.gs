@@ -3,26 +3,28 @@ uses
     Bosco
     Entitas
 
-class MovementSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
-    _world : World
-    _group : Group
-    _game : Game
+namespace ShmupWarz
 
-    construct(game : Game)
-        _game = game
+    class MovementSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+        _world : World
+        _group : Group
+        _game : Game
 
-    def setWorld(world : World)
-        _world = world
+        construct(game : Game)
+            _game = game
 
-    def initialize()
-        _group = _world.getGroup(Matcher.AllOf({Component.Position, Component.Velocity}))
+        def setWorld(world : World)
+            _world = world
 
-    def execute()
-        for var entity in _group.getEntities()
-            var pos = entity.position
-            var vel = entity.velocity
-            pos.x += (vel.x * _game.delta)
-            pos.y += (vel.y * _game.delta)
+        def initialize()
+            _group = _world.getGroup(Matcher.AllOf({Component.Position, Component.Velocity}))
+
+        def execute()
+            for var entity in _group.getEntities()
+                var pos = entity.position
+                var vel = entity.velocity
+                pos.x += (vel.x * _game.delta)
+                pos.y += (vel.y * _game.delta)
 
 
 

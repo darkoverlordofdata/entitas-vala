@@ -3,23 +3,26 @@ uses
     Bosco
     Entitas
 
-class ExpiringSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
-    _world : World
-    _group : Group
-    _game : Game
 
-    construct(game : Game)
-        _game = game
+namespace ShmupWarz
 
-    def setWorld(world:World)
-        _world = world
+    class ExpiringSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+        _world : World
+        _group : Group
+        _game : Game
 
-    def initialize()
-        _group = _world.getGroup(Matcher.AllOf({Component.Expires}))
+        construct(game : Game)
+            _game = game
 
-    def execute()
-        for var entity in _group.getEntities()
-            if (entity.expires.delay -= _game.delta) <= 0
-                entity.setDestroy(true)
+        def setWorld(world:World)
+            _world = world
+
+        def initialize()
+            _group = _world.getGroup(Matcher.AllOf({Component.Expires}))
+
+        def execute()
+            for var entity in _group.getEntities()
+                if (entity.expires.delay -= _game.delta) <= 0
+                    entity.setDestroy(true)
 
 

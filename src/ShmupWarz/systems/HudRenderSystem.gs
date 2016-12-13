@@ -5,52 +5,55 @@ uses
     Bosco
     Entitas
 
-class HudRenderSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
 
-    const WHITE : Video.Color = {250, 250, 250}
+namespace ShmupWarz
 
-    const ACTIVE_ENTITIES : string  = "Active entities:         %3d"
-    const TOTAL_RETAINED : string   = "Total reusable:          %3d"
-    const TOTAL_REUSABLE : string   = "Total retained:          %3d"
+    class HudRenderSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
 
-    _game : Game
-    _world : World
-    _font: SDLTTF.Font
-    _activeEntities : Sprite
-    _totalRetained : Sprite
-    _totalReusable : Sprite
-    _renderer : unowned Video.Renderer
+        const WHITE : Video.Color = {250, 250, 250}
 
-    construct(game : Game)
-        _game = game
-        _renderer = _game.renderer
+        const ACTIVE_ENTITIES : string  = "Active entities:         %3d"
+        const TOTAL_RETAINED : string   = "Total reusable:          %3d"
+        const TOTAL_REUSABLE : string   = "Total retained:          %3d"
 
-    def setWorld(world : World)
-        _world = world
+        _game : Game
+        _world : World
+        _font: SDLTTF.Font
+        _activeEntities : Sprite
+        _totalRetained : Sprite
+        _totalReusable : Sprite
+        _renderer : unowned Video.Renderer
 
-    def initialize()
-        _font = new Font("res/fonts/TitanOne-Regular.ttf", 16)
-        if _font == null
-            print "Failed to load font"
+        construct(game : Game)
+            _game = game
+            _renderer = _game.renderer
 
-        _game.sprites.add(_activeEntities = createText(0, 40, ACTIVE_ENTITIES.printf(_world.count)))
-        _game.sprites.add(_totalRetained = createText(0, 60, TOTAL_RETAINED.printf(_world.reusableEntitiesCount)))
-        _game.sprites.add(_totalReusable = createText(0, 80, TOTAL_REUSABLE.printf(_world.retainedEntitiesCount)))
+        def setWorld(world : World)
+            _world = world
 
-    def execute()
-        setText(_activeEntities, ACTIVE_ENTITIES.printf(_world.count))
-        setText(_totalRetained, TOTAL_RETAINED.printf(_world.retainedEntitiesCount))
-        setText(_totalReusable, TOTAL_REUSABLE.printf(_world.reusableEntitiesCount))
+        def initialize()
+            _font = new Font("res/fonts/TitanOne-Regular.ttf", 16)
+            if _font == null
+                print "Failed to load font"
 
-    def createText(x : int, y : int, text : string) : Sprite
-        var sprite = Sprite.fromRenderedText(_renderer, _font, text, WHITE)
-        sprite.x = x
-        sprite.y = y
-        sprite.layer = Layer.HUD
-        sprite.centered = false
-        return sprite
+            _game.sprites.add(_activeEntities = createText(0, 40, ACTIVE_ENTITIES.printf(_world.count)))
+            _game.sprites.add(_totalRetained = createText(0, 60, TOTAL_RETAINED.printf(_world.reusableEntitiesCount)))
+            _game.sprites.add(_totalReusable = createText(0, 80, TOTAL_REUSABLE.printf(_world.retainedEntitiesCount)))
 
-    def setText(sprite : Sprite, text : string)
-        sprite.setText(_renderer, _font, text, WHITE)
+        def execute()
+            setText(_activeEntities, ACTIVE_ENTITIES.printf(_world.count))
+            setText(_totalRetained, TOTAL_RETAINED.printf(_world.retainedEntitiesCount))
+            setText(_totalReusable, TOTAL_REUSABLE.printf(_world.reusableEntitiesCount))
+
+        def createText(x : int, y : int, text : string) : Sprite
+            var sprite = Sprite.fromRenderedText(_renderer, _font, text, WHITE)
+            sprite.x = x
+            sprite.y = y
+            sprite.layer = Layer.HUD
+            sprite.centered = false
+            return sprite
+
+        def setText(sprite : Sprite, text : string)
+            sprite.setText(_renderer, _font, text, WHITE)
 
 

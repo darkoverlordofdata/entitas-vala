@@ -3,41 +3,43 @@ uses
     Bosco
     Entitas
 
-class ScaleTweenSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
-    _world : World
-    _group : Group
-    _game : Game
+namespace ShmupWarz
 
-    construct(game : Game)
-        _game = game
+    class ScaleTweenSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+        _world : World
+        _group : Group
+        _game : Game
 
-    def setWorld(world : World)
-        _world = world
+        construct(game : Game)
+            _game = game
 
-    def initialize()
-        _group = _world.getGroup(Matcher.AllOf({Component.ScaleTween, Component.Resource}))
+        def setWorld(world : World)
+            _world = world
 
-    def execute()
-        for var entity in _group.getEntities()
+        def initialize()
+            _group = _world.getGroup(Matcher.AllOf({Component.ScaleTween, Component.Resource}))
 
-            var scaleTween = entity.scaleTween
+        def execute()
+            for var entity in _group.getEntities()
 
-            if scaleTween.active
-                var res = entity.resource
-                var scale = res.sprite.scale
+                var scaleTween = entity.scaleTween
 
-                res.sprite.scale.x += scaleTween.speed * _game.delta
-                res.sprite.scale.y += scaleTween.speed * _game.delta
+                if scaleTween.active
+                    var res = entity.resource
+                    var scale = res.sprite.scale
 
-                if scale.x > scaleTween.max
-                    res.sprite.scale.x = scaleTween.max
-                    res.sprite.scale.y = scaleTween.max
-                    scaleTween.active = false
+                    res.sprite.scale.x += scaleTween.speed * _game.delta
+                    res.sprite.scale.y += scaleTween.speed * _game.delta
 
-                else if scale.x < scaleTween.min
-                    res.sprite.scale.x = scaleTween.min
-                    res.sprite.scale.y = scaleTween.min
-                    scaleTween.active = false
+                    if scale.x > scaleTween.max
+                        res.sprite.scale.x = scaleTween.max
+                        res.sprite.scale.y = scaleTween.max
+                        scaleTween.active = false
+
+                    else if scale.x < scaleTween.min
+                        res.sprite.scale.x = scaleTween.min
+                        res.sprite.scale.y = scaleTween.min
+                        scaleTween.active = false
 
 
 

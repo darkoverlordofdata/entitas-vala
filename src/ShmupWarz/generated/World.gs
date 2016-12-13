@@ -5,7 +5,7 @@
  */
 [indent=4]
 uses Bosco
-uses Entitas
+
 namespace Entitas 
     class World : WorldBase 
 

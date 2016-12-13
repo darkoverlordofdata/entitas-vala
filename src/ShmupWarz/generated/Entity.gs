@@ -5,7 +5,7 @@
  */
 [indent=4]
 uses Bosco
-uses Entitas
+
 namespace Entitas
     const POOL_SIZE : int = 128
 

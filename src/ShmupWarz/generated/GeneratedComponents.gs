@@ -7,148 +7,150 @@
 uses Bosco
 uses Entitas
 
-const components: array of string = {
-    "BoundsComponent",
-    "BulletComponent",
-    "ColorTweenComponent",
-    "DestroyComponent",
-    "EnemyComponent",
-    "ExpiresComponent",
-    "FiringComponent",
-    "HealthComponent",
-    "LayerComponent",
-    "LifeComponent",
-    "MineComponent",
-    "MouseComponent",
-    "PlayerComponent",
-    "PositionComponent",
-    "ResourceComponent",
-    "ScaleTweenComponent",
-    "ScaleComponent",
-    "ScoreComponent",
-    "SoundEffectComponent",
-    "TintComponent",
-    "VelocityComponent"
-}
+namespace Entitas
 
-enum Component
-    Bounds
-    Bullet
-    ColorTween
-    Destroy
-    Enemy
-    Expires
-    Firing
-    Health
-    Layer
-    Life
-    Mine
-    Mouse
-    Player
-    Position
-    Resource
-    ScaleTween
-    Scale
-    Score
-    SoundEffect
-    Tint
-    Velocity
-    TotalComponents
+    const components: array of string = {
+        "BoundsComponent",
+        "BulletComponent",
+        "ColorTweenComponent",
+        "DestroyComponent",
+        "EnemyComponent",
+        "ExpiresComponent",
+        "FiringComponent",
+        "HealthComponent",
+        "LayerComponent",
+        "LifeComponent",
+        "MineComponent",
+        "MouseComponent",
+        "PlayerComponent",
+        "PositionComponent",
+        "ResourceComponent",
+        "ScaleTweenComponent",
+        "ScaleComponent",
+        "ScoreComponent",
+        "SoundEffectComponent",
+        "TintComponent",
+        "VelocityComponent"
+    }
+
+    enum Component
+        Bounds
+        Bullet
+        ColorTween
+        Destroy
+        Enemy
+        Expires
+        Firing
+        Health
+        Layer
+        Life
+        Mine
+        Mouse
+        Player
+        Position
+        Resource
+        ScaleTween
+        Scale
+        Score
+        SoundEffect
+        Tint
+        Velocity
+        TotalComponents
 
 
 
-class BoundsComponent : DarkMatter implements IComponent
-    radius:double
+    class BoundsComponent : DarkMatter implements IComponent
+        radius:double
 
-class BulletComponent : DarkMatter implements IComponent
-    bullet : bool = true
+    class BulletComponent : DarkMatter implements IComponent
+        bullet : bool = true
 
-class ColorTweenComponent : DarkMatter implements IComponent
-    redMin:double
-    redMax:double
-    redSpeed:double
-    greenMin:double
-    greenMax:double
-    greenSpeed:double
-    blueMin:double
-    blueMax:double
-    blueSpeed:double
-    alphaMin:double
-    alphaMax:double
-    alphaSpeed:double
-    redAnimate:bool
-    greenAnimate:bool
-    blueAnimate:bool
-    alphaAnimate:bool
-    repeat:bool
+    class ColorTweenComponent : DarkMatter implements IComponent
+        redMin:double
+        redMax:double
+        redSpeed:double
+        greenMin:double
+        greenMax:double
+        greenSpeed:double
+        blueMin:double
+        blueMax:double
+        blueSpeed:double
+        alphaMin:double
+        alphaMax:double
+        alphaSpeed:double
+        redAnimate:bool
+        greenAnimate:bool
+        blueAnimate:bool
+        alphaAnimate:bool
+        repeat:bool
 
-class DestroyComponent : DarkMatter implements IComponent
-    destroy : bool = true
+    class DestroyComponent : DarkMatter implements IComponent
+        destroy : bool = true
 
-class EnemyComponent : DarkMatter implements IComponent
-    enemy : bool = true
+    class EnemyComponent : DarkMatter implements IComponent
+        enemy : bool = true
 
-class ExpiresComponent : DarkMatter implements IComponent
-    delay:double
+    class ExpiresComponent : DarkMatter implements IComponent
+        delay:double
 
-class FiringComponent : DarkMatter implements IComponent
-    firing : bool = true
+    class FiringComponent : DarkMatter implements IComponent
+        firing : bool = true
 
-class HealthComponent : DarkMatter implements IComponent
-    health:double
-    maximumHealth:double
+    class HealthComponent : DarkMatter implements IComponent
+        health:double
+        maximumHealth:double
 
-class LayerComponent : DarkMatter implements IComponent
-    ordinal:int
+    class LayerComponent : DarkMatter implements IComponent
+        ordinal:int
 
-class LifeComponent : DarkMatter implements IComponent
-    count:int
+    class LifeComponent : DarkMatter implements IComponent
+        count:int
 
-class MineComponent : DarkMatter implements IComponent
-    mine : bool = true
+    class MineComponent : DarkMatter implements IComponent
+        mine : bool = true
 
-class MouseComponent : DarkMatter implements IComponent
-    x:double
-    y:double
+    class MouseComponent : DarkMatter implements IComponent
+        x:double
+        y:double
 
-class PlayerComponent : DarkMatter implements IComponent
-    player : bool = true
+    class PlayerComponent : DarkMatter implements IComponent
+        player : bool = true
 
-class PositionComponent : DarkMatter implements IComponent
-    x:double
-    y:double
+    class PositionComponent : DarkMatter implements IComponent
+        x:double
+        y:double
 
-class ResourceComponent : DarkMatter implements IComponent
-    path:string
-    sprite:Sprite?
-    bgd:bool=false
+    class ResourceComponent : DarkMatter implements IComponent
+        path:string
+        sprite:Sprite?
+        bgd:bool=false
 
-class ScaleTweenComponent : DarkMatter implements IComponent
-    min:double
-    max:double
-    speed:double
-    repeat:bool
-    active:bool
+    class ScaleTweenComponent : DarkMatter implements IComponent
+        min:double
+        max:double
+        speed:double
+        repeat:bool
+        active:bool
 
-class ScaleComponent : DarkMatter implements IComponent
-    x:double
-    y:double
+    class ScaleComponent : DarkMatter implements IComponent
+        x:double
+        y:double
 
-class ScoreComponent : DarkMatter implements IComponent
-    value:double
+    class ScoreComponent : DarkMatter implements IComponent
+        value:double
 
-class SoundEffectComponent : DarkMatter implements IComponent
-    effect:int
+    class SoundEffectComponent : DarkMatter implements IComponent
+        effect:int
 
-class TintComponent : DarkMatter implements IComponent
-    r:int
-    g:int
-    b:int
-    a:int
+    class TintComponent : DarkMatter implements IComponent
+        r:int
+        g:int
+        b:int
+        a:int
 
-class VelocityComponent : DarkMatter implements IComponent
-    x:double
-    y:double
+    class VelocityComponent : DarkMatter implements IComponent
+        x:double
+        y:double
 
 
 
