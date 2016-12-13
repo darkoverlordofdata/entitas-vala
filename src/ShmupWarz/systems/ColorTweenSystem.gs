@@ -5,7 +5,7 @@ uses
 
 namespace ShmupWarz
 
-    class ColorTweenSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class ColorTweenSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _world : World
         _group : Group
         _game : Game

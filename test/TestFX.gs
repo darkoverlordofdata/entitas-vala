@@ -1,7 +1,7 @@
 [indent=4]
 uses
     //Utils
-    Bosco.ECS
+    Entitas
 
 init
     new TestExample().run()
@@ -12,23 +12,23 @@ enum Components
     ResourceComponent
 
 [Compact]
-class PositionComponent : DarkMatter implements IComponent
+class PositionComponent : Object implements IComponent
     x:double
     y:double
     z:double
 
 [Compact]
-class MovementComponent : DarkMatter implements  IComponent
+class MovementComponent : Object implements  IComponent
     x:double
     y:double
     z:double
 
 [Compact]
-class ResourceComponent : DarkMatter implements IComponent
+class ResourceComponent : Object implements IComponent
     path:string
 
 
-class TestSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+class TestSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
     group:Group
 
     def setWorld(world:World)

@@ -4,11 +4,11 @@ namespace Entitas
 
     delegate OnComponentReplaced(e : Entity, index : int, component : IComponent, replacement : IComponent)
 
-    class ComponentReplaced : DarkMatter
+    class ComponentReplaced : Object
 
         _listeners : list of Listener = new list of Listener
 
-        class Listener : DarkMatter
+        class Listener : Object
             prop event : unowned OnComponentReplaced
             construct(event : OnComponentReplaced)
                 _event = event

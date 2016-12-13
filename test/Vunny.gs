@@ -50,7 +50,7 @@ namespace Bunny
      *
      *  GObject is a requirement to provice init/final blocks for test
      */
-    class Vunny : Object
+    class Vunny : GLib.Object
         passed:int=0
         failed:int=0
         name:string = ""

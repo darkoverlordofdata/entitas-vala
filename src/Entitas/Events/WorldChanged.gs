@@ -4,9 +4,9 @@ namespace Entitas
 
     delegate OnWorldChanged(w : World, e : Entity)
 
-    class WorldChanged : DarkMatter
+    class WorldChanged : Object
 
-        class Listener : DarkMatter
+        class Listener : Object
             prop event : unowned OnWorldChanged
             construct(event : OnWorldChanged)
                 _event = event

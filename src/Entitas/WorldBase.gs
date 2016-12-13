@@ -6,7 +6,7 @@ uses Gee
 
 namespace Entitas
 
-    class abstract WorldBase : DarkMatter
+    class abstract WorldBase : Object
 
         /**
          * The total number of components in this pool

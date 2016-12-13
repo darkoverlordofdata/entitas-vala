@@ -5,7 +5,7 @@ uses
 
 namespace ShmupWarz
 
-    class RemoveOffscreenShipsSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class RemoveOffscreenShipsSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _world : World
         _group : Group
         _game : Game

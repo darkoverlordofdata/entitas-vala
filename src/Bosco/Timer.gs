@@ -1,7 +1,7 @@
 [indent=4]
 namespace Bosco
 
-    class Timer : DarkMatter
+    class Timer : Object
 
         _startTicks : int
         _pausedTicks : int

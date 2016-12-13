@@ -59,13 +59,13 @@ namespace Entitas
 
 
 
-    class BoundsComponent : DarkMatter implements IComponent
+    class BoundsComponent : Object implements IComponent
         radius:double
 
-    class BulletComponent : DarkMatter implements IComponent
+    class BulletComponent : Object implements IComponent
         bullet : bool = true
 
-    class ColorTweenComponent : DarkMatter implements IComponent
+    class ColorTweenComponent : Object implements IComponent
         redMin:double
         redMax:double
         redSpeed:double
@@ -84,71 +84,71 @@ namespace Entitas
         alphaAnimate:bool
         repeat:bool
 
-    class DestroyComponent : DarkMatter implements IComponent
+    class DestroyComponent : Object implements IComponent
         destroy : bool = true
 
-    class EnemyComponent : DarkMatter implements IComponent
+    class EnemyComponent : Object implements IComponent
         enemy : bool = true
 
-    class ExpiresComponent : DarkMatter implements IComponent
+    class ExpiresComponent : Object implements IComponent
         delay:double
 
-    class FiringComponent : DarkMatter implements IComponent
+    class FiringComponent : Object implements IComponent
         firing : bool = true
 
-    class HealthComponent : DarkMatter implements IComponent
+    class HealthComponent : Object implements IComponent
         health:double
         maximumHealth:double
 
-    class LayerComponent : DarkMatter implements IComponent
+    class LayerComponent : Object implements IComponent
         ordinal:int
 
-    class LifeComponent : DarkMatter implements IComponent
+    class LifeComponent : Object implements IComponent
         count:int
 
-    class MineComponent : DarkMatter implements IComponent
+    class MineComponent : Object implements IComponent
         mine : bool = true
 
-    class MouseComponent : DarkMatter implements IComponent
+    class MouseComponent : Object implements IComponent
         x:double
         y:double
 
-    class PlayerComponent : DarkMatter implements IComponent
+    class PlayerComponent : Object implements IComponent
         player : bool = true
 
-    class PositionComponent : DarkMatter implements IComponent
+    class PositionComponent : Object implements IComponent
         x:double
         y:double
 
-    class ResourceComponent : DarkMatter implements IComponent
+    class ResourceComponent : Object implements IComponent
         path:string
         sprite:Sprite?
         bgd:bool=false
 
-    class ScaleTweenComponent : DarkMatter implements IComponent
+    class ScaleTweenComponent : Object implements IComponent
         min:double
         max:double
         speed:double
         repeat:bool
         active:bool
 
-    class ScaleComponent : DarkMatter implements IComponent
+    class ScaleComponent : Object implements IComponent
         x:double
         y:double
 
-    class ScoreComponent : DarkMatter implements IComponent
+    class ScoreComponent : Object implements IComponent
         value:double
 
-    class SoundEffectComponent : DarkMatter implements IComponent
+    class SoundEffectComponent : Object implements IComponent
         effect:int
 
-    class TintComponent : DarkMatter implements IComponent
+    class TintComponent : Object implements IComponent
         r:int
         g:int
         b:int
         a:int
 
-    class VelocityComponent : DarkMatter implements IComponent
+    class VelocityComponent : Object implements IComponent
         x:double
         y:double
 

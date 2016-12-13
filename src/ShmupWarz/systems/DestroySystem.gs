@@ -5,7 +5,7 @@ uses
 
 namespace ShmupWarz
 
-    class DestroySystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class DestroySystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _world : World
         _group : Group
         _game : Game

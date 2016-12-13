@@ -5,7 +5,7 @@ uses
 
 namespace ShmupWarz
 
-    class EntitySpawningTimerSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class EntitySpawningTimerSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _game : Game
         _world : World
         _timer1 : double

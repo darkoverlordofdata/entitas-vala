@@ -6,7 +6,7 @@ uses
 
 namespace ShmupWarz
 
-    class CollisionSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class CollisionSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _world : World
         _game : Game
         _bullets : Group

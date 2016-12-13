@@ -4,9 +4,9 @@ namespace Entitas
 
     delegate OnEntityChanged(e : Entity, index : int, component : IComponent)
 
-    class EntityChanged : DarkMatter
+    class EntityChanged : Object
 
-        class Listener : DarkMatter
+        class Listener : Object
             prop event : unowned OnEntityChanged
             construct(event : OnEntityChanged)
                 _event = event

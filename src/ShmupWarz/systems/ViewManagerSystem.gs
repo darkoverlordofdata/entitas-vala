@@ -6,7 +6,7 @@ uses
 
 namespace ShmupWarz
 
-    class ViewManagerSystem : DarkMatter implements ISystem, IInitializeSystem, ISetWorld
+    class ViewManagerSystem : Object implements ISystem, IInitializeSystem, ISetWorld
 
         _renderer : unowned Video.Renderer
         _sprites : GenericArray of Sprite

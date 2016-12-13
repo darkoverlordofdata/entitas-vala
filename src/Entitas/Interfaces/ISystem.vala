@@ -1,17 +1,17 @@
 namespace Entitas {
-    public interface ISystem : DarkMatter  {
+    public interface ISystem : Object  {
 
     }
 
-    public interface ISetWorld : DarkMatter  {
+    public interface ISetWorld : Object  {
       public abstract void setWorld(World world);
     }
 
-    public interface IExecuteSystem : DarkMatter  {
+    public interface IExecuteSystem : Object  {
       public abstract void execute();
     }
 
-    public interface IInitializeSystem : DarkMatter  {
+    public interface IInitializeSystem : Object  {
       public abstract void initialize();
     }
 

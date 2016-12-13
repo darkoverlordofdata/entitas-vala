@@ -13,14 +13,4 @@ namespace Entitas {
       base(componentsEnum, totalComponents);
     }
   }
-  public class World : WorldBase {
-    public static string[] componentsEnum;
-    public static int totalComponents;
-    public static World instance; 
-    public World(string[] components, int startCreationIndex=0) {
-      base(components, startCreationIndex);
-    }
-
-  }
-  
 }

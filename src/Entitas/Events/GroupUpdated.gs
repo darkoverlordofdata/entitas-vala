@@ -4,9 +4,9 @@ namespace Entitas
 
     delegate OnGroupUpdated(g : Group, e : Entity, i : int, c : IComponent, u : IComponent)
 
-    class GroupUpdated : DarkMatter
+    class GroupUpdated : Object
 
-        class Listener : DarkMatter
+        class Listener : Object
             prop event : unowned OnGroupUpdated
             construct(event : OnGroupUpdated)
                 _event = event

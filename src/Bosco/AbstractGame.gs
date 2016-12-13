@@ -6,7 +6,7 @@ uses SDLTTF
 
 namespace Bosco
 
-    class AbstractGame : DarkMatter
+    class AbstractGame : Object
 
         name : string
         width : int
@@ -32,7 +32,14 @@ namespace Bosco
         _t2: double = 0.0
         _t3: double = 0.0
 
+        // This fails to compile, this proving that
+        // this class does not inherit from standard GGObject
+        // init
+        //     print "Hello World"
+
         def Run() : int
+
+
             if Initialize() == false
                 return -1
 

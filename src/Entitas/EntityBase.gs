@@ -5,7 +5,7 @@
 namespace Entitas
 
 
-    class abstract EntityBase : DarkMatter
+    class abstract EntityBase : Object
 
         /**
          * @static

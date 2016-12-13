@@ -8,7 +8,7 @@ uses
 
 namespace ShmupWarz
 
-    class HudRenderSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class HudRenderSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
 
         const WHITE : Video.Color = {250, 250, 250}
 

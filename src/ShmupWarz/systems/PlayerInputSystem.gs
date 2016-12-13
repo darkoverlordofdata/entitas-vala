@@ -6,7 +6,7 @@ uses
 
 namespace ShmupWarz
 
-    class PlayerInputSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class PlayerInputSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _group : Group
         _world : World
         _game : Game

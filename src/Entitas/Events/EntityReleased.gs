@@ -4,9 +4,9 @@ namespace Entitas
 
     delegate OnEntityReleased(e : Entity)
     
-    class EntityReleased : DarkMatter
+    class EntityReleased : Object
 
-        class Listener : DarkMatter
+        class Listener : Object
             prop event : unowned OnEntityReleased
             construct(event : OnEntityReleased)
                 _event = event

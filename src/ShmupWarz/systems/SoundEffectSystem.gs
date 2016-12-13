@@ -7,7 +7,7 @@ uses
 
 namespace ShmupWarz
 
-    class SoundEffectSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class SoundEffectSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _group: Group
         _game : Game
         _pew : Chunk

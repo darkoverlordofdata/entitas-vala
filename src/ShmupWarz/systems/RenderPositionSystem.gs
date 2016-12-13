@@ -6,7 +6,7 @@ uses
 
 namespace ShmupWarz
 
-    class RenderPositionSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
+    class RenderPositionSystem : Object implements ISystem, ISetWorld, IInitializeSystem, IExecuteSystem
         _renderer : unowned Video.Renderer
         _group: Group
         _game : Game

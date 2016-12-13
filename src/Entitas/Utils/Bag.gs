@@ -1,6 +1,6 @@
 [indent=4]
 namespace Entitas
-    class Bag of T : DarkMatter
+    class Bag of T : Object
 
         _queue : array of IComponent
         _used : int

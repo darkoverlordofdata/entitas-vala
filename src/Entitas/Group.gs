@@ -2,7 +2,7 @@
 
 namespace Entitas
 
-    class Group : DarkMatter
+    class Group : Object
 
         /**
          * Subscribe to Entity Addded events

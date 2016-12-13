@@ -13,7 +13,7 @@ namespace Entitas
         OnEntityAddedOrRemoved
 
 
-    class Matcher : DarkMatter implements IMatcher, IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher
+    class Matcher : Object implements IMatcher, IAllOfMatcher, IAnyOfMatcher, INoneOfMatcher
 
         /**
          * A unique sequential index number assigned to each ,atch

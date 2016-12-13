@@ -24,7 +24,7 @@ namespace Bosco
         b : uint8
         a : uint8
 
-    class Sprite : DarkMatter
+    class Sprite : Object
         uniqueId : static int = 0
 
         texture : Video.Texture
