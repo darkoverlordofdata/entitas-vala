@@ -32,11 +32,6 @@ namespace Bosco
         _t2: double = 0.0
         _t3: double = 0.0
 
-        // This fails to compile, this proving that
-        // this class does not inherit from standard GGObject
-        // init
-        //     print "Hello World"
-
         def Run() : int
 
 

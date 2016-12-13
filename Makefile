@@ -15,11 +15,11 @@ DEBUG=-g --save-temps
 CFLAGS=-X -w 
 #
 # locationks
-@
 SRC=src
 RES=res
 BIN=build
 .PHONY: build
+
 #
 # c libs needed for the gcc compiler
 #
@@ -104,9 +104,10 @@ TESTING=src/Object.vala \
 		src/Entitas/World.vala \
 		src/Bosco/Timer.gs \
 		src/Bosco/Sprite.gs \
-		src/Bosco/AbstractGame.gs
+		src/Bosco/AbstractGame.gs \
 		test/Vunny.gs \
 		test/TestFX.gs
+
 
 
 
