@@ -3,7 +3,7 @@ uses
     Bosco
     Entitas
 
-namespace shmupwarz 
+namespace ShmupWarz 
 
 
     class ExpiringSystem : Object implements  ISetWorld,  IExecuteSystem, ISystem

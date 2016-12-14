@@ -63,21 +63,21 @@ SOURCES=src/Object.vala \
 		src/Entitas/World.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
-		src/shmupwarz/Components.gs \
 		src/ShmupWarz/Entities.gs \
-		src/ShmupWarz/systems/DestroySystem.gs \
-		src/ShmupWarz/systems/ColorTweenSystem.gs \
-		src/ShmupWarz/systems/ExpiringSystem.gs \
-		src/ShmupWarz/systems/MovementSystem.gs \
-		src/ShmupWarz/systems/RenderPositionSystem.gs \
-		src/ShmupWarz/systems/ViewManagerSystem.gs \
-		src/ShmupWarz/systems/PlayerInputSystem.gs \
-		src/ShmupWarz/systems/EntitySpawningTimerSystem.gs \
-		src/ShmupWarz/systems/CollisionSystem.gs \
-		src/ShmupWarz/systems/RemoveOffscreenShipsSystem.gs \
-		src/ShmupWarz/systems/ScaleTweenSystem.gs \
-		src/ShmupWarz/systems/SoundEffectSystem.gs \
-		src/ShmupWarz/systems/HudRenderSystem.gs \
+		src/ShmupWarz/Components.gs \
+		src/ShmupWarz/Systems/DestroySystem.gs \
+		src/ShmupWarz/Systems/ColorTweenSystem.gs \
+		src/ShmupWarz/Systems/ExpiringSystem.gs \
+		src/ShmupWarz/Systems/MovementSystem.gs \
+		src/ShmupWarz/Systems/RenderPositionSystem.gs \
+		src/ShmupWarz/Systems/ViewManagerSystem.gs \
+		src/ShmupWarz/Systems/PlayerInputSystem.gs \
+		src/ShmupWarz/Systems/EntitySpawningTimerSystem.gs \
+		src/ShmupWarz/Systems/CollisionSystem.gs \
+		src/ShmupWarz/Systems/RemoveOffscreenShipsSystem.gs \
+		src/ShmupWarz/Systems/ScaleTweenSystem.gs \
+		src/ShmupWarz/Systems/SoundEffectSystem.gs \
+		src/ShmupWarz/Systems/HudRenderSystem.gs \
 		src/ShmupWarz/Game.gs
 
 ZOURCES=src/Object.vala \
@@ -104,19 +104,19 @@ ZOURCES=src/Object.vala \
 		src/ShmupWarz/Entity.gs \
 		src/ShmupWarz/Components.gs \
 		src/ShmupWarz/Entities.gs \
-		src/ShmupWarz/systems/DestroySystem.gs \
-		src/ShmupWarz/systems/ColorTweenSystem.gs \
-		src/ShmupWarz/systems/ExpiringSystem.gs \
-		src/ShmupWarz/systems/MovementSystem.gs \
-		src/ShmupWarz/systems/RenderPositionSystem.gs \
-		src/ShmupWarz/systems/ViewManagerSystem.gs \
-		src/ShmupWarz/systems/PlayerInputSystem.gs \
-		src/ShmupWarz/systems/EntitySpawningTimerSystem.gs \
-		src/ShmupWarz/systems/CollisionSystem.gs \
-		src/ShmupWarz/systems/RemoveOffscreenShipsSystem.gs \
-		src/ShmupWarz/systems/ScaleTweenSystem.gs \
-		src/ShmupWarz/systems/SoundEffectSystem.gs \
-		src/ShmupWarz/systems/HudRenderSystem.gs \
+		src/ShmupWarz/Systems/DestroySystem.gs \
+		src/ShmupWarz/Systems/ColorTweenSystem.gs \
+		src/ShmupWarz/Systems/ExpiringSystem.gs \
+		src/ShmupWarz/Systems/MovementSystem.gs \
+		src/ShmupWarz/Systems/RenderPositionSystem.gs \
+		src/ShmupWarz/Systems/ViewManagerSystem.gs \
+		src/ShmupWarz/Systems/PlayerInputSystem.gs \
+		src/ShmupWarz/Systems/EntitySpawningTimerSystem.gs \
+		src/ShmupWarz/Systems/CollisionSystem.gs \
+		src/ShmupWarz/Systems/RemoveOffscreenShipsSystem.gs \
+		src/ShmupWarz/Systems/ScaleTweenSystem.gs \
+		src/ShmupWarz/Systems/SoundEffectSystem.gs \
+		src/ShmupWarz/Systems/HudRenderSystem.gs \
 		src/ShmupWarz/Game.gs
 #
 # tests for this project
@@ -184,7 +184,7 @@ clean:
 	rm -rf $(SRC)/Entitas/Events/*.c
 	rm -rf $(SRC)/Entitas/Interfaces/*.c
 	rm -rf $(SRC)/ShmupWarz/*.c
-	rm -rf $(SRC)/ShmupWarz/systems/*.c
+	rm -rf $(SRC)/ShmupWarz/Systems/*.c
 
 
 	

@@ -3,16 +3,20 @@ uses
     Bosco
     Entitas
 
-namespace shmupwarz 
+namespace ShmupWarz 
 
 
-    class ViewManagerSystem : Object implements  IExecuteSystem,  IInitializeSystem, ISystem
+    class CollisionSystem : Object implements  ISetWorld,  IExecuteSystem,  IInitializeSystem, ISystem
         _game : Game
         _world: World
 
         construct(game : Game)
             _game = game
 
+
+
+        def setWorld(world: World)
+            _world = world
 
 
         def execute()

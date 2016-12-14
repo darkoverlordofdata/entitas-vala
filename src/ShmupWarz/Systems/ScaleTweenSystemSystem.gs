@@ -3,10 +3,10 @@ uses
     Bosco
     Entitas
 
-namespace shmupwarz 
+namespace ShmupWarz 
 
 
-    class MovementSystem : Object implements  ISetWorld,  IExecuteSystem, ISystem
+    class ScaleTweenSystem : Object implements  ISetWorld,  IExecuteSystem, ISystem
         _game : Game
         _world: World
 

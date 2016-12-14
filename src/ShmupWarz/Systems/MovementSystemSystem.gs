@@ -3,10 +3,10 @@ uses
     Bosco
     Entitas
 
-namespace shmupwarz 
+namespace ShmupWarz 
 
 
-    class PlayerInputSystem : Object implements  ISetWorld,  IExecuteSystem,  IInitializeSystem, ISystem
+    class MovementSystem : Object implements  ISetWorld,  IExecuteSystem, ISystem
         _game : Game
         _world: World
 
@@ -20,8 +20,5 @@ namespace shmupwarz
 
 
         def execute()
-
-
-        def initialize
 
 
