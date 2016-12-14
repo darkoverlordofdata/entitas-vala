@@ -1,4 +1,4 @@
-# ShmupWars - Vala
+# entitas - vala
 
 ## install
 
@@ -14,8 +14,8 @@ $ sudo cp ./*.{vapi,deps} /usr/share/vala/vapi/ -R --force
 
 Now the application
 ```
-$ cd ~/Applications
-$ git clone git@github.com:darkoverlordofdata/shmupwarz-vala.git
+$ cd ~/Git
+$ git clone git@github.com:darkoverlordofdata/entitas-vala.git
 $ cd shmupwarz-vala
 $ make run
 ```
@@ -30,9 +30,6 @@ rename ./.vscode/*.windows.json to ./.vscode/*.json
 Then use vscode ctrl-b to build, f5 to debug
 
 
-
-![screenshot](https://github.com/darkoverlordofdata/shmupwarz-vala/blob/master/Screenshot.png)
-
-
-sdl2-mixer.vapi patched to play sound effect *.wav of the year
+### Notes
+sdl2-mixer.vapi patched to play sound effect *.wav 
 

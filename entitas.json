@@ -1,8 +1,8 @@
 {
-  "namespace": "ShmupWarz",
+  "namespace": "Example",
   "src": "src",
   "output": {
-    "gs":"gen"
+    "systems":"Systems"
   },
   "alloc": {
     "entities": 200,
