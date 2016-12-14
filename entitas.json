@@ -2,7 +2,7 @@
   "namespace": "shmupwarz",
   "src": "src",
   "output": {
-    "vala":"src/game/generated"
+    "gs":"gen"
   },
   "alloc": {
     "entities": 200,
@@ -60,7 +60,7 @@
     ],
     "Resource": [
       "path:string",
-      "sprite:Sprite?",
+      "sprite:Object?",
       "bgd:bool=false"
     ],
     "ScaleTween": [
@@ -91,11 +91,56 @@
       "y:double"
     ]
   },
-  "systems": {},
-  "entities": {
-    "Score": true,
-    "Mouse": true,
-    "Firing": true
+  "systems": {
+    "CollisionSystem": [
+      "ISetWorld",
+      "IExecuteSystem",
+      "IInitializeSystem"
+    ],
+    "ColorTweenSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "EntitySpawningTimerSystem": [
+      "ISetWorld",
+      "IExecuteSystem",
+      "IInitializeSystem"
+    ],
+    "ExpiringSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "MovementSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "PlayerInputSystem": [
+      "ISetWorld",
+      "IExecuteSystem",
+      "IInitializeSystem"
+    ],
+    "RemoveOffscreenShipsSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "RenderPositionSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "SoundEffectSystem": [
+      "ISetWorld",
+      "IExecuteSystem",
+      "IInitializeSystem"
+    ],
+    "ScaleTweenSystem": [
+      "ISetWorld",
+      "IExecuteSystem"
+    ],
+    "ViewManagerSystem": [
+      "IExecuteSystem",
+      "IInitializeSystem"
+    ]
   },
+  "entities": {},
   "extensions": {}
 }

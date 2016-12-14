@@ -43,37 +43,38 @@ namespace ShmupWarz
 
             var res = (ResourceComponent)c
             res.sprite = Sprite.fromFile(_renderer, res.path)
-            if res.sprite == null
+            var sprite = (Sprite)res.sprite
+            if sprite == null
                 print "Failed to load %s", res.path
                 return
 
             if e.hasScale
-                res.sprite.scale.x = e.scale.x
-                res.sprite.scale.y = e.scale.y
+                sprite.scale.x = e.scale.x
+                sprite.scale.y = e.scale.y
 
             if e.hasLayer
-                res.sprite.layer = e.layer.ordinal
+                sprite.layer = e.layer.ordinal
                 ordinal = e.layer.ordinal
 
             if e.hasTint
-                res.sprite.color.r = (uint8)e.tint.r
-                res.sprite.color.g = (uint8)e.tint.g
-                res.sprite.color.b = (uint8)e.tint.b
+                sprite.color.r = (uint8)e.tint.r
+                sprite.color.g = (uint8)e.tint.g
+                sprite.color.b = (uint8)e.tint.b
 
             if res.bgd
-                res.sprite.centered = false
+                sprite.centered = false
 
             /**
             * Insert sprite in layer order
             */
             if _sprites.length == 0
-                _sprites.add(res.sprite)
+                _sprites.add(sprite)
             else
                 for var i=0 to (_sprites.length-1)
                     if ordinal <= _sprites[i].layer
-                        _sprites.insert(i, res.sprite)
+                        _sprites.insert(i, sprite)
                         return
-                _sprites.add(res.sprite)
+                _sprites.add(sprite)
 
 
 

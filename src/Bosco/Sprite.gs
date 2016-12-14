@@ -1,9 +1,14 @@
 /**
- * Image.gs
+ * Sprite.gs
  *
  * Wrapper for SDLImage surface
  *
+ * Copyright 2016 Dark Overlord of Data
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the he MIT License (MIT).
  *
+ * Author: 
+ *      bruce davidson
  */
 [indent=4]
 
@@ -18,12 +23,6 @@ namespace Bosco
         x : double
         y : double
 
-    struct Color
-        r : uint8
-        g : uint8
-        b : uint8
-        a : uint8
-
     class Sprite : Object
         uniqueId : static int = 0
 
@@ -36,7 +35,7 @@ namespace Bosco
             x = 1.0,
             y = 1.0
         }
-        color : Color = Color() {
+        color : Video.Color = Video.Color() {
             r = 255,
             g = 255,
             b = 255,
@@ -97,6 +96,7 @@ namespace Bosco
                     mt.height = loadedSurface.h
             return mt
 
+
         def render(renderer : Video.Renderer, x : int, y : int, clip : Video.Rect? = null)
             var w = (int)((clip == null ? width : clip.w) * scale.x)
             var h = (int)((clip == null ? height : clip.h) * scale.y)
@@ -107,6 +107,5 @@ namespace Bosco
             texture.set_color_mod(color.r, color.g, color.b)
 
             renderer.copy(texture, null, {x, y, w, h})
-
 
 

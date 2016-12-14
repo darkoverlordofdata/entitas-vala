@@ -38,6 +38,8 @@ LIBS=--pkg glib-2.0 \
 		--pkg sdl2-mixer \
 		--pkg gio-2.0 
 #
+
+
 # source code for this project
 #
 SOURCES=src/Object.vala \
@@ -52,14 +54,51 @@ SOURCES=src/Object.vala \
 		src/Entitas/Events/GroupChanged.gs \
 		src/Entitas/Events/GroupUpdated.gs \
 		src/Entitas/Interfaces/IComponent.vala \
-		src/Entitas/Interfaces/ISystem.vala \
 		src/Entitas/Interfaces/IMatcher.vala \
+		src/Entitas/Interfaces/ISystem.vala \
 		src/Entitas/EntityBase.gs \
 		src/Entitas/Group.gs \
 		src/Entitas/Matcher.gs \
 		src/Entitas/WorldBase.gs \
-		src/Entitas/World.vala \
-		src/Bosco/Timer.gs \
+		src/Entitas/World.gs \
+		src/Bosco/Sprite.gs \
+		src/Bosco/AbstractGame.gs \
+		src/shmupwarz/Components.gs \
+		src/ShmupWarz/Entities.gs \
+		src/ShmupWarz/systems/DestroySystem.gs \
+		src/ShmupWarz/systems/ColorTweenSystem.gs \
+		src/ShmupWarz/systems/ExpiringSystem.gs \
+		src/ShmupWarz/systems/MovementSystem.gs \
+		src/ShmupWarz/systems/RenderPositionSystem.gs \
+		src/ShmupWarz/systems/ViewManagerSystem.gs \
+		src/ShmupWarz/systems/PlayerInputSystem.gs \
+		src/ShmupWarz/systems/EntitySpawningTimerSystem.gs \
+		src/ShmupWarz/systems/CollisionSystem.gs \
+		src/ShmupWarz/systems/RemoveOffscreenShipsSystem.gs \
+		src/ShmupWarz/systems/ScaleTweenSystem.gs \
+		src/ShmupWarz/systems/SoundEffectSystem.gs \
+		src/ShmupWarz/systems/HudRenderSystem.gs \
+		src/ShmupWarz/Game.gs
+
+ZOURCES=src/Object.vala \
+		src/Entitas/Utils/UUID.vala \
+		src/Entitas/Utils/Bag.gs \
+		src/Entitas/Exceptions.gs \
+		src/Entitas/Events/EntityReleased.gs \
+		src/Entitas/Events/ComponentReplaced.gs \
+		src/Entitas/Events/EntityChanged.gs \
+		src/Entitas/Events/WorldChanged.gs \
+		src/Entitas/Events/GroupsChanged.gs \
+		src/Entitas/Events/GroupChanged.gs \
+		src/Entitas/Events/GroupUpdated.gs \
+		src/Entitas/Interfaces/IComponent.vala \
+		src/Entitas/Interfaces/IMatcher.vala \
+		src/Entitas/Interfaces/ISystem.vala \
+		src/Entitas/EntityBase.gs \
+		src/Entitas/Group.gs \
+		src/Entitas/Matcher.gs \
+		src/Entitas/WorldBase.gs \
+		src/Entitas/World.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
 		src/ShmupWarz/Entity.gs \
@@ -102,7 +141,6 @@ TESTING=src/Object.vala \
 		src/Entitas/Matcher.gs \
 		src/Entitas/WorldBase.gs \
 		src/Entitas/World.vala \
-		src/Bosco/Timer.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
 		test/Vunny.gs \

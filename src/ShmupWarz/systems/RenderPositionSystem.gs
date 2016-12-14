@@ -26,8 +26,9 @@ namespace ShmupWarz
             for var entity in _group.getEntities()
                 var res = entity.resource
                 var pos = entity.position
-                res.sprite.x = (int)pos.x
-                res.sprite.y = (int)pos.y
+                var sprite = (Sprite)res.sprite
+                sprite.x = (int)pos.x
+                sprite.y = (int)pos.y
 
 
 

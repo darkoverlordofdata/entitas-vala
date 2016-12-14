@@ -10,6 +10,6 @@
  */
 [indent=4]
 
-namespace Bosco
+namespace Entitas
 
     const VERSION: string = "0.0.1"

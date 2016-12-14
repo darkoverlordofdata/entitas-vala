@@ -26,19 +26,20 @@ namespace ShmupWarz
 
                 if scaleTween.active
                     var res = entity.resource
-                    var scale = res.sprite.scale
+                    var sprite = (Sprite)res.sprite
+                    var scale = sprite.scale
 
-                    res.sprite.scale.x += scaleTween.speed * _game.delta
-                    res.sprite.scale.y += scaleTween.speed * _game.delta
+                    sprite.scale.x += scaleTween.speed * _game.delta
+                    sprite.scale.y += scaleTween.speed * _game.delta
 
                     if scale.x > scaleTween.max
-                        res.sprite.scale.x = scaleTween.max
-                        res.sprite.scale.y = scaleTween.max
+                        sprite.scale.x = scaleTween.max
+                        sprite.scale.y = scaleTween.max
                         scaleTween.active = false
 
                     else if scale.x < scaleTween.min
-                        res.sprite.scale.x = scaleTween.min
-                        res.sprite.scale.y = scaleTween.min
+                        sprite.scale.x = scaleTween.min
+                        sprite.scale.y = scaleTween.min
                         scaleTween.active = false
 
 

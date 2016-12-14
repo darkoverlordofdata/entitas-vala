@@ -1,6 +1,17 @@
+/**
+ * AbstractGame.gs
+ *
+ * Copyright 2016 Dark Overlord of Data
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the he MIT License (MIT).
+ *
+ * Author: 
+ *      bruce davidson
+ */
 [indent=4]
 uses SDL
 uses SDLMixer    
+uses SDL.Input
 uses SDL.Video
 uses SDLTTF
 
@@ -53,7 +64,7 @@ namespace Bosco
 
                 _lastTime = _currentTime
                 _currentTime = (double)GLib.get_real_time()/1000000.0
-                _delta = _currentTime - _lastTime
+                _delta = (_currentTime - _lastTime) * 1.2
 
                 _t1 = (double)GLib.get_real_time()/1000000.0 
 
