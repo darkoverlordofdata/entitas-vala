@@ -61,7 +61,7 @@
     "Resource": [
       "path:string",
       "sprite:Object?",
-      "bgd:bool=false"
+      "bgd:bool"
     ],
     "ScaleTween": [
       "min:double",

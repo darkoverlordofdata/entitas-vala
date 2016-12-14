@@ -64,7 +64,7 @@ SOURCES=src/Object.vala \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
 		src/ShmupWarz/Entities.gs \
-		src/ShmupWarz/Components.gs \
+		src/ShmupWarz/Components.vala \
 		src/ShmupWarz/Systems/DestroySystem.gs \
 		src/ShmupWarz/Systems/ColorTweenSystem.gs \
 		src/ShmupWarz/Systems/ExpiringSystem.gs \

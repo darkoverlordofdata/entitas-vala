@@ -1,3 +1,9 @@
+/**
+ * Entities.gs
+ *
+ * Entity factory
+ *
+ */
 [indent=4]
 uses
     Bosco
@@ -68,6 +74,7 @@ namespace ShmupWarz
         var s = 10.0
         return World.instance.createEntity("bullet"
             ).setBullet(true
+            ).addHealth(1.5, 1.5
             ).addPosition(x, y
             ).addVelocity(0, -800
             ).addTint(0xAD, 0xFF, 0x2F, 255
@@ -117,6 +124,9 @@ namespace ShmupWarz
             ).addColorTween(r, m, s, g, m, s, b, m, s, a, m, s, true, true, true, true, true
             ).addResource("res/images/explosion.png", null, false)
 
+    /**
+    *  Create Small Explosion
+    */
     def createBang(x: double, y: double) : Entity
         var r = (double) 0xae
         var g = (double) 0xa8
@@ -135,6 +145,9 @@ namespace ShmupWarz
             ).addColorTween(r, m, s, g, m, s, b, m, s, a, m, s, true, true, true, true, true
             ).addResource("res/images/bang.png", null, false)
 
+    /**
+    *  Create Small Enemy
+    */
     def createEnemy1() : Entity
         var x = UUID.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 200
@@ -148,6 +161,9 @@ namespace ShmupWarz
             ).addResource("res/images/enemy1.png", null, false)
 
 
+    /**
+    *  Create Medium Sized Enemy
+    */
     def createEnemy2() : Entity
         var x = UUID.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 100
@@ -161,6 +177,9 @@ namespace ShmupWarz
             ).addResource("res/images/enemy2.png", null, false)
 
 
+    /**
+    *  Create Large Enemy
+    */
     def createEnemy3() : Entity
         var x = UUID.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 50

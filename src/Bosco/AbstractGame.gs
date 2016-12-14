@@ -64,7 +64,7 @@ namespace Bosco
 
                 _lastTime = _currentTime
                 _currentTime = (double)GLib.get_real_time()/1000000.0
-                _delta = (_currentTime - _lastTime) * 1.2
+                _delta = (_currentTime - _lastTime)
 
                 _t1 = (double)GLib.get_real_time()/1000000.0 
 

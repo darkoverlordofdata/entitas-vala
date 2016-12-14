@@ -33,7 +33,7 @@ namespace Entitas
         "SoundEffectComponent",
         "TintComponent",
         "VelocityComponent",
-        ""
+        "ComponentsCount"
     }
 
     enum Component
@@ -58,7 +58,7 @@ namespace Entitas
         SoundEffect
         Tint
         Velocity
-        TotalComponents
+        ComponentsCount
 
 
 
@@ -226,10 +226,12 @@ namespace Entitas
 
         /** Entity: Bounds methods*/
 
+        /** @type Bounds */
         prop bounds : BoundsComponent
             get
                 return (BoundsComponent)getComponent(Component.Bounds)
 
+        /** @type boolean */
         prop hasBounds : bool
             get
                 return hasComponent(Component.Bounds)
@@ -237,12 +239,20 @@ namespace Entitas
         def clearBoundsComponentPool()
             _boundsComponentPool.clear()
 
+        /**
+         * @param radius double
+         * @return entitas.Entity
+         */
         def addBounds(radius:double) : Entity
             var c = _boundsComponentPool.length > 0 ? _boundsComponentPool.pop() : new BoundsComponent()
             c.radius = radius
             addComponent(Component.Bounds, c)
             return this
 
+        /**
+         * @param radius double
+         * @return entitas.Entity
+         */
         def replaceBounds(radius:double) : Entity
             var previousComponent = hasBounds ? this.bounds : null
             var c = _boundsComponentPool.length>0? _boundsComponentPool.pop() : new BoundsComponent()
@@ -252,6 +262,9 @@ namespace Entitas
                 _boundsComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeBounds() : Entity
             var c = bounds
             removeComponent(Component.Bounds) 
@@ -261,8 +274,7 @@ namespace Entitas
 
         /** Entity: Bullet methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isBullet : bool
             get
                 return hasComponent(Component.Bullet)
@@ -273,8 +285,8 @@ namespace Entitas
                     removeComponent(Component.Bullet)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setBullet(value : bool) : Entity
             isBullet = value
@@ -283,10 +295,12 @@ namespace Entitas
 
         /** Entity: ColorTween methods*/
 
+        /** @type ColorTween */
         prop colorTween : ColorTweenComponent
             get
                 return (ColorTweenComponent)getComponent(Component.ColorTween)
 
+        /** @type boolean */
         prop hasColorTween : bool
             get
                 return hasComponent(Component.ColorTween)
@@ -294,6 +308,26 @@ namespace Entitas
         def clearColorTweenComponentPool()
             _colorTweenComponentPool.clear()
 
+        /**
+         * @param redMin double
+         * @param redMax double
+         * @param redSpeed double
+         * @param greenMin double
+         * @param greenMax double
+         * @param greenSpeed double
+         * @param blueMin double
+         * @param blueMax double
+         * @param blueSpeed double
+         * @param alphaMin double
+         * @param alphaMax double
+         * @param alphaSpeed double
+         * @param redAnimate bool
+         * @param greenAnimate bool
+         * @param blueAnimate bool
+         * @param alphaAnimate bool
+         * @param repeat bool
+         * @return entitas.Entity
+         */
         def addColorTween(redMin:double,redMax:double,redSpeed:double,greenMin:double,greenMax:double,greenSpeed:double,blueMin:double,blueMax:double,blueSpeed:double,alphaMin:double,alphaMax:double,alphaSpeed:double,redAnimate:bool,greenAnimate:bool,blueAnimate:bool,alphaAnimate:bool,repeat:bool) : Entity
             var c = _colorTweenComponentPool.length > 0 ? _colorTweenComponentPool.pop() : new ColorTweenComponent()
             c.redMin = redMin
@@ -316,6 +350,26 @@ namespace Entitas
             addComponent(Component.ColorTween, c)
             return this
 
+        /**
+         * @param redMin double
+         * @param redMax double
+         * @param redSpeed double
+         * @param greenMin double
+         * @param greenMax double
+         * @param greenSpeed double
+         * @param blueMin double
+         * @param blueMax double
+         * @param blueSpeed double
+         * @param alphaMin double
+         * @param alphaMax double
+         * @param alphaSpeed double
+         * @param redAnimate bool
+         * @param greenAnimate bool
+         * @param blueAnimate bool
+         * @param alphaAnimate bool
+         * @param repeat bool
+         * @return entitas.Entity
+         */
         def replaceColorTween(redMin:double,redMax:double,redSpeed:double,greenMin:double,greenMax:double,greenSpeed:double,blueMin:double,blueMax:double,blueSpeed:double,alphaMin:double,alphaMax:double,alphaSpeed:double,redAnimate:bool,greenAnimate:bool,blueAnimate:bool,alphaAnimate:bool,repeat:bool) : Entity
             var previousComponent = hasColorTween ? this.colorTween : null
             var c = _colorTweenComponentPool.length>0? _colorTweenComponentPool.pop() : new ColorTweenComponent()
@@ -341,6 +395,9 @@ namespace Entitas
                 _colorTweenComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeColorTween() : Entity
             var c = colorTween
             removeComponent(Component.ColorTween) 
@@ -350,8 +407,7 @@ namespace Entitas
 
         /** Entity: Destroy methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isDestroy : bool
             get
                 return hasComponent(Component.Destroy)
@@ -362,8 +418,8 @@ namespace Entitas
                     removeComponent(Component.Destroy)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setDestroy(value : bool) : Entity
             isDestroy = value
@@ -372,8 +428,7 @@ namespace Entitas
 
         /** Entity: Enemy methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isEnemy : bool
             get
                 return hasComponent(Component.Enemy)
@@ -384,8 +439,8 @@ namespace Entitas
                     removeComponent(Component.Enemy)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setEnemy(value : bool) : Entity
             isEnemy = value
@@ -394,10 +449,12 @@ namespace Entitas
 
         /** Entity: Expires methods*/
 
+        /** @type Expires */
         prop expires : ExpiresComponent
             get
                 return (ExpiresComponent)getComponent(Component.Expires)
 
+        /** @type boolean */
         prop hasExpires : bool
             get
                 return hasComponent(Component.Expires)
@@ -405,12 +462,20 @@ namespace Entitas
         def clearExpiresComponentPool()
             _expiresComponentPool.clear()
 
+        /**
+         * @param delay double
+         * @return entitas.Entity
+         */
         def addExpires(delay:double) : Entity
             var c = _expiresComponentPool.length > 0 ? _expiresComponentPool.pop() : new ExpiresComponent()
             c.delay = delay
             addComponent(Component.Expires, c)
             return this
 
+        /**
+         * @param delay double
+         * @return entitas.Entity
+         */
         def replaceExpires(delay:double) : Entity
             var previousComponent = hasExpires ? this.expires : null
             var c = _expiresComponentPool.length>0? _expiresComponentPool.pop() : new ExpiresComponent()
@@ -420,6 +485,9 @@ namespace Entitas
                 _expiresComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeExpires() : Entity
             var c = expires
             removeComponent(Component.Expires) 
@@ -429,8 +497,7 @@ namespace Entitas
 
         /** Entity: Firing methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isFiring : bool
             get
                 return hasComponent(Component.Firing)
@@ -441,8 +508,8 @@ namespace Entitas
                     removeComponent(Component.Firing)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setFiring(value : bool) : Entity
             isFiring = value
@@ -451,10 +518,12 @@ namespace Entitas
 
         /** Entity: Health methods*/
 
+        /** @type Health */
         prop health : HealthComponent
             get
                 return (HealthComponent)getComponent(Component.Health)
 
+        /** @type boolean */
         prop hasHealth : bool
             get
                 return hasComponent(Component.Health)
@@ -462,6 +531,11 @@ namespace Entitas
         def clearHealthComponentPool()
             _healthComponentPool.clear()
 
+        /**
+         * @param health double
+         * @param maximumHealth double
+         * @return entitas.Entity
+         */
         def addHealth(health:double,maximumHealth:double) : Entity
             var c = _healthComponentPool.length > 0 ? _healthComponentPool.pop() : new HealthComponent()
             c.health = health
@@ -469,6 +543,11 @@ namespace Entitas
             addComponent(Component.Health, c)
             return this
 
+        /**
+         * @param health double
+         * @param maximumHealth double
+         * @return entitas.Entity
+         */
         def replaceHealth(health:double,maximumHealth:double) : Entity
             var previousComponent = hasHealth ? this.health : null
             var c = _healthComponentPool.length>0? _healthComponentPool.pop() : new HealthComponent()
@@ -479,6 +558,9 @@ namespace Entitas
                 _healthComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeHealth() : Entity
             var c = health
             removeComponent(Component.Health) 
@@ -488,10 +570,12 @@ namespace Entitas
 
         /** Entity: Layer methods*/
 
+        /** @type Layer */
         prop layer : LayerComponent
             get
                 return (LayerComponent)getComponent(Component.Layer)
 
+        /** @type boolean */
         prop hasLayer : bool
             get
                 return hasComponent(Component.Layer)
@@ -499,12 +583,20 @@ namespace Entitas
         def clearLayerComponentPool()
             _layerComponentPool.clear()
 
+        /**
+         * @param ordinal int
+         * @return entitas.Entity
+         */
         def addLayer(ordinal:int) : Entity
             var c = _layerComponentPool.length > 0 ? _layerComponentPool.pop() : new LayerComponent()
             c.ordinal = ordinal
             addComponent(Component.Layer, c)
             return this
 
+        /**
+         * @param ordinal int
+         * @return entitas.Entity
+         */
         def replaceLayer(ordinal:int) : Entity
             var previousComponent = hasLayer ? this.layer : null
             var c = _layerComponentPool.length>0? _layerComponentPool.pop() : new LayerComponent()
@@ -514,6 +606,9 @@ namespace Entitas
                 _layerComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeLayer() : Entity
             var c = layer
             removeComponent(Component.Layer) 
@@ -523,10 +618,12 @@ namespace Entitas
 
         /** Entity: Life methods*/
 
+        /** @type Life */
         prop life : LifeComponent
             get
                 return (LifeComponent)getComponent(Component.Life)
 
+        /** @type boolean */
         prop hasLife : bool
             get
                 return hasComponent(Component.Life)
@@ -534,12 +631,20 @@ namespace Entitas
         def clearLifeComponentPool()
             _lifeComponentPool.clear()
 
+        /**
+         * @param count int
+         * @return entitas.Entity
+         */
         def addLife(count:int) : Entity
             var c = _lifeComponentPool.length > 0 ? _lifeComponentPool.pop() : new LifeComponent()
             c.count = count
             addComponent(Component.Life, c)
             return this
 
+        /**
+         * @param count int
+         * @return entitas.Entity
+         */
         def replaceLife(count:int) : Entity
             var previousComponent = hasLife ? this.life : null
             var c = _lifeComponentPool.length>0? _lifeComponentPool.pop() : new LifeComponent()
@@ -549,6 +654,9 @@ namespace Entitas
                 _lifeComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeLife() : Entity
             var c = life
             removeComponent(Component.Life) 
@@ -558,8 +666,7 @@ namespace Entitas
 
         /** Entity: Mine methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isMine : bool
             get
                 return hasComponent(Component.Mine)
@@ -570,8 +677,8 @@ namespace Entitas
                     removeComponent(Component.Mine)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setMine(value : bool) : Entity
             isMine = value
@@ -580,10 +687,12 @@ namespace Entitas
 
         /** Entity: Mouse methods*/
 
+        /** @type Mouse */
         prop mouse : MouseComponent
             get
                 return (MouseComponent)getComponent(Component.Mouse)
 
+        /** @type boolean */
         prop hasMouse : bool
             get
                 return hasComponent(Component.Mouse)
@@ -591,6 +700,11 @@ namespace Entitas
         def clearMouseComponentPool()
             _mouseComponentPool.clear()
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def addMouse(x:double,y:double) : Entity
             var c = _mouseComponentPool.length > 0 ? _mouseComponentPool.pop() : new MouseComponent()
             c.x = x
@@ -598,6 +712,11 @@ namespace Entitas
             addComponent(Component.Mouse, c)
             return this
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def replaceMouse(x:double,y:double) : Entity
             var previousComponent = hasMouse ? this.mouse : null
             var c = _mouseComponentPool.length>0? _mouseComponentPool.pop() : new MouseComponent()
@@ -608,6 +727,9 @@ namespace Entitas
                 _mouseComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeMouse() : Entity
             var c = mouse
             removeComponent(Component.Mouse) 
@@ -617,8 +739,7 @@ namespace Entitas
 
         /** Entity: Player methods*/
 
-
-        /** @type {boolean} */
+        /** @type boolean */
         prop isPlayer : bool
             get
                 return hasComponent(Component.Player)
@@ -629,8 +750,8 @@ namespace Entitas
                     removeComponent(Component.Player)
                 
         /**
-         * @param {boolean} value
-         * @returns {entitas.Entity}
+         * @param value boolean
+         * @return entitas.Entity
          */
         def setPlayer(value : bool) : Entity
             isPlayer = value
@@ -639,10 +760,12 @@ namespace Entitas
 
         /** Entity: Position methods*/
 
+        /** @type Position */
         prop position : PositionComponent
             get
                 return (PositionComponent)getComponent(Component.Position)
 
+        /** @type boolean */
         prop hasPosition : bool
             get
                 return hasComponent(Component.Position)
@@ -650,6 +773,11 @@ namespace Entitas
         def clearPositionComponentPool()
             _positionComponentPool.clear()
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def addPosition(x:double,y:double) : Entity
             var c = _positionComponentPool.length > 0 ? _positionComponentPool.pop() : new PositionComponent()
             c.x = x
@@ -657,6 +785,11 @@ namespace Entitas
             addComponent(Component.Position, c)
             return this
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def replacePosition(x:double,y:double) : Entity
             var previousComponent = hasPosition ? this.position : null
             var c = _positionComponentPool.length>0? _positionComponentPool.pop() : new PositionComponent()
@@ -667,6 +800,9 @@ namespace Entitas
                 _positionComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removePosition() : Entity
             var c = position
             removeComponent(Component.Position) 
@@ -676,10 +812,12 @@ namespace Entitas
 
         /** Entity: Resource methods*/
 
+        /** @type Resource */
         prop resource : ResourceComponent
             get
                 return (ResourceComponent)getComponent(Component.Resource)
 
+        /** @type boolean */
         prop hasResource : bool
             get
                 return hasComponent(Component.Resource)
@@ -687,6 +825,12 @@ namespace Entitas
         def clearResourceComponentPool()
             _resourceComponentPool.clear()
 
+        /**
+         * @param path string
+         * @param sprite Object
+         * @param bgd bool=false
+         * @return entitas.Entity
+         */
         def addResource(path:string,sprite:Object?,bgd:bool=false) : Entity
             var c = _resourceComponentPool.length > 0 ? _resourceComponentPool.pop() : new ResourceComponent()
             c.path = path
@@ -695,6 +839,12 @@ namespace Entitas
             addComponent(Component.Resource, c)
             return this
 
+        /**
+         * @param path string
+         * @param sprite Object
+         * @param bgd bool=false
+         * @return entitas.Entity
+         */
         def replaceResource(path:string,sprite:Object?,bgd:bool=false) : Entity
             var previousComponent = hasResource ? this.resource : null
             var c = _resourceComponentPool.length>0? _resourceComponentPool.pop() : new ResourceComponent()
@@ -706,6 +856,9 @@ namespace Entitas
                 _resourceComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeResource() : Entity
             var c = resource
             removeComponent(Component.Resource) 
@@ -715,10 +868,12 @@ namespace Entitas
 
         /** Entity: ScaleTween methods*/
 
+        /** @type ScaleTween */
         prop scaleTween : ScaleTweenComponent
             get
                 return (ScaleTweenComponent)getComponent(Component.ScaleTween)
 
+        /** @type boolean */
         prop hasScaleTween : bool
             get
                 return hasComponent(Component.ScaleTween)
@@ -726,6 +881,14 @@ namespace Entitas
         def clearScaleTweenComponentPool()
             _scaleTweenComponentPool.clear()
 
+        /**
+         * @param min double
+         * @param max double
+         * @param speed double
+         * @param repeat bool
+         * @param active bool
+         * @return entitas.Entity
+         */
         def addScaleTween(min:double,max:double,speed:double,repeat:bool,active:bool) : Entity
             var c = _scaleTweenComponentPool.length > 0 ? _scaleTweenComponentPool.pop() : new ScaleTweenComponent()
             c.min = min
@@ -736,6 +899,14 @@ namespace Entitas
             addComponent(Component.ScaleTween, c)
             return this
 
+        /**
+         * @param min double
+         * @param max double
+         * @param speed double
+         * @param repeat bool
+         * @param active bool
+         * @return entitas.Entity
+         */
         def replaceScaleTween(min:double,max:double,speed:double,repeat:bool,active:bool) : Entity
             var previousComponent = hasScaleTween ? this.scaleTween : null
             var c = _scaleTweenComponentPool.length>0? _scaleTweenComponentPool.pop() : new ScaleTweenComponent()
@@ -749,6 +920,9 @@ namespace Entitas
                 _scaleTweenComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeScaleTween() : Entity
             var c = scaleTween
             removeComponent(Component.ScaleTween) 
@@ -758,10 +932,12 @@ namespace Entitas
 
         /** Entity: Scale methods*/
 
+        /** @type Scale */
         prop scale : ScaleComponent
             get
                 return (ScaleComponent)getComponent(Component.Scale)
 
+        /** @type boolean */
         prop hasScale : bool
             get
                 return hasComponent(Component.Scale)
@@ -769,6 +945,11 @@ namespace Entitas
         def clearScaleComponentPool()
             _scaleComponentPool.clear()
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def addScale(x:double,y:double) : Entity
             var c = _scaleComponentPool.length > 0 ? _scaleComponentPool.pop() : new ScaleComponent()
             c.x = x
@@ -776,6 +957,11 @@ namespace Entitas
             addComponent(Component.Scale, c)
             return this
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def replaceScale(x:double,y:double) : Entity
             var previousComponent = hasScale ? this.scale : null
             var c = _scaleComponentPool.length>0? _scaleComponentPool.pop() : new ScaleComponent()
@@ -786,6 +972,9 @@ namespace Entitas
                 _scaleComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeScale() : Entity
             var c = scale
             removeComponent(Component.Scale) 
@@ -795,10 +984,12 @@ namespace Entitas
 
         /** Entity: Score methods*/
 
+        /** @type Score */
         prop score : ScoreComponent
             get
                 return (ScoreComponent)getComponent(Component.Score)
 
+        /** @type boolean */
         prop hasScore : bool
             get
                 return hasComponent(Component.Score)
@@ -806,12 +997,20 @@ namespace Entitas
         def clearScoreComponentPool()
             _scoreComponentPool.clear()
 
+        /**
+         * @param value double
+         * @return entitas.Entity
+         */
         def addScore(value:double) : Entity
             var c = _scoreComponentPool.length > 0 ? _scoreComponentPool.pop() : new ScoreComponent()
             c.value = value
             addComponent(Component.Score, c)
             return this
 
+        /**
+         * @param value double
+         * @return entitas.Entity
+         */
         def replaceScore(value:double) : Entity
             var previousComponent = hasScore ? this.score : null
             var c = _scoreComponentPool.length>0? _scoreComponentPool.pop() : new ScoreComponent()
@@ -821,6 +1020,9 @@ namespace Entitas
                 _scoreComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeScore() : Entity
             var c = score
             removeComponent(Component.Score) 
@@ -830,10 +1032,12 @@ namespace Entitas
 
         /** Entity: SoundEffect methods*/
 
+        /** @type SoundEffect */
         prop soundEffect : SoundEffectComponent
             get
                 return (SoundEffectComponent)getComponent(Component.SoundEffect)
 
+        /** @type boolean */
         prop hasSoundEffect : bool
             get
                 return hasComponent(Component.SoundEffect)
@@ -841,12 +1045,20 @@ namespace Entitas
         def clearSoundEffectComponentPool()
             _soundEffectComponentPool.clear()
 
+        /**
+         * @param effect int
+         * @return entitas.Entity
+         */
         def addSoundEffect(effect:int) : Entity
             var c = _soundEffectComponentPool.length > 0 ? _soundEffectComponentPool.pop() : new SoundEffectComponent()
             c.effect = effect
             addComponent(Component.SoundEffect, c)
             return this
 
+        /**
+         * @param effect int
+         * @return entitas.Entity
+         */
         def replaceSoundEffect(effect:int) : Entity
             var previousComponent = hasSoundEffect ? this.soundEffect : null
             var c = _soundEffectComponentPool.length>0? _soundEffectComponentPool.pop() : new SoundEffectComponent()
@@ -856,6 +1068,9 @@ namespace Entitas
                 _soundEffectComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeSoundEffect() : Entity
             var c = soundEffect
             removeComponent(Component.SoundEffect) 
@@ -865,10 +1080,12 @@ namespace Entitas
 
         /** Entity: Tint methods*/
 
+        /** @type Tint */
         prop tint : TintComponent
             get
                 return (TintComponent)getComponent(Component.Tint)
 
+        /** @type boolean */
         prop hasTint : bool
             get
                 return hasComponent(Component.Tint)
@@ -876,6 +1093,13 @@ namespace Entitas
         def clearTintComponentPool()
             _tintComponentPool.clear()
 
+        /**
+         * @param r int
+         * @param g int
+         * @param b int
+         * @param a int
+         * @return entitas.Entity
+         */
         def addTint(r:int,g:int,b:int,a:int) : Entity
             var c = _tintComponentPool.length > 0 ? _tintComponentPool.pop() : new TintComponent()
             c.r = r
@@ -885,6 +1109,13 @@ namespace Entitas
             addComponent(Component.Tint, c)
             return this
 
+        /**
+         * @param r int
+         * @param g int
+         * @param b int
+         * @param a int
+         * @return entitas.Entity
+         */
         def replaceTint(r:int,g:int,b:int,a:int) : Entity
             var previousComponent = hasTint ? this.tint : null
             var c = _tintComponentPool.length>0? _tintComponentPool.pop() : new TintComponent()
@@ -897,6 +1128,9 @@ namespace Entitas
                 _tintComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeTint() : Entity
             var c = tint
             removeComponent(Component.Tint) 
@@ -906,10 +1140,12 @@ namespace Entitas
 
         /** Entity: Velocity methods*/
 
+        /** @type Velocity */
         prop velocity : VelocityComponent
             get
                 return (VelocityComponent)getComponent(Component.Velocity)
 
+        /** @type boolean */
         prop hasVelocity : bool
             get
                 return hasComponent(Component.Velocity)
@@ -917,6 +1153,11 @@ namespace Entitas
         def clearVelocityComponentPool()
             _velocityComponentPool.clear()
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def addVelocity(x:double,y:double) : Entity
             var c = _velocityComponentPool.length > 0 ? _velocityComponentPool.pop() : new VelocityComponent()
             c.x = x
@@ -924,6 +1165,11 @@ namespace Entitas
             addComponent(Component.Velocity, c)
             return this
 
+        /**
+         * @param x double
+         * @param y double
+         * @return entitas.Entity
+         */
         def replaceVelocity(x:double,y:double) : Entity
             var previousComponent = hasVelocity ? this.velocity : null
             var c = _velocityComponentPool.length>0? _velocityComponentPool.pop() : new VelocityComponent()
@@ -934,6 +1180,9 @@ namespace Entitas
                 _velocityComponentPool.push(previousComponent)
             return this
 
+        /**
+         * @returns {entitas.Entity}
+         */
         def removeVelocity() : Entity
             var c = velocity
             removeComponent(Component.Velocity) 
@@ -941,46 +1190,52 @@ namespace Entitas
             return this
 
 
-
+        /** @type entitas.utils.Bag<Bounds> */
         _boundsComponentPool : Bag of BoundsComponent
 
+        /** @type Bullet */
         _bulletComponent : BulletComponent
-
+        /** @type entitas.utils.Bag<ColorTween> */
         _colorTweenComponentPool : Bag of ColorTweenComponent
 
+        /** @type Destroy */
         _destroyComponent : DestroyComponent
 
+        /** @type Enemy */
         _enemyComponent : EnemyComponent
-
+        /** @type entitas.utils.Bag<Expires> */
         _expiresComponentPool : Bag of ExpiresComponent
 
+        /** @type Firing */
         _firingComponent : FiringComponent
-
+        /** @type entitas.utils.Bag<Health> */
         _healthComponentPool : Bag of HealthComponent
-
+        /** @type entitas.utils.Bag<Layer> */
         _layerComponentPool : Bag of LayerComponent
-
+        /** @type entitas.utils.Bag<Life> */
         _lifeComponentPool : Bag of LifeComponent
 
+        /** @type Mine */
         _mineComponent : MineComponent
-
+        /** @type entitas.utils.Bag<Mouse> */
         _mouseComponentPool : Bag of MouseComponent
 
+        /** @type Player */
         _playerComponent : PlayerComponent
-
+        /** @type entitas.utils.Bag<Position> */
         _positionComponentPool : Bag of PositionComponent
-
+        /** @type entitas.utils.Bag<Resource> */
         _resourceComponentPool : Bag of ResourceComponent
-
+        /** @type entitas.utils.Bag<ScaleTween> */
         _scaleTweenComponentPool : Bag of ScaleTweenComponent
-
+        /** @type entitas.utils.Bag<Scale> */
         _scaleComponentPool : Bag of ScaleComponent
-
+        /** @type entitas.utils.Bag<Score> */
         _scoreComponentPool : Bag of ScoreComponent
-
+        /** @type entitas.utils.Bag<SoundEffect> */
         _soundEffectComponentPool : Bag of SoundEffectComponent
-
+        /** @type entitas.utils.Bag<Tint> */
         _tintComponentPool : Bag of TintComponent
-
+        /** @type entitas.utils.Bag<Velocity> */
         _velocityComponentPool : Bag of VelocityComponent
 

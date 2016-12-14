@@ -58,7 +58,7 @@ namespace ShmupWarz
             while --i > 0 do createParticle(x, y)
 
             if !bullet.isDestroy do bullet.setDestroy(true)
-            health.health -= 1
+            health.health = health.health - bullet.health.health
             if health.health < 0
                 if !ship.isDestroy do ship.setDestroy(true)
                 createExplosion(position.x, position.y)
