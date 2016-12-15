@@ -86,11 +86,11 @@ namespace ShmupWarz
     *  Create Particle
     */
     def createParticle(x : double, y : double) : Entity
-        var radians = UUID.random.next_double() * Tau
-        var magnitude = UUID.random.int_range(0, 200)
+        var radians = World.random.next_double() * Tau
+        var magnitude = World.random.int_range(0, 200)
         var velocityX = magnitude * Math.cos(radians)
         var velocityY = magnitude * Math.sin(radians)
-        var scale = UUID.random.double_range(0.1, 1.0)
+        var scale = World.random.double_range(0.1, 1.0)
         return World.instance.createEntity("particle"
             ).addPosition(x, y
             ).addVelocity(velocityX, velocityY
@@ -146,7 +146,7 @@ namespace ShmupWarz
     *  Create Small Enemy
     */
     def createEnemy1() : Entity
-        var x = UUID.random.int_range(0, SCREEN_WIDTH)
+        var x = World.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 200
         return World.instance.createEntity("enemy1"
             ).setEnemy(true
@@ -163,7 +163,7 @@ namespace ShmupWarz
     *  Create Medium Sized Enemy
     */
     def createEnemy2() : Entity
-        var x = UUID.random.int_range(0, SCREEN_WIDTH)
+        var x = World.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 100
         return World.instance.createEntity("enemy2"
             ).setEnemy(true
@@ -180,7 +180,7 @@ namespace ShmupWarz
     *  Create Large Enemy
     */
     def createEnemy3() : Entity
-        var x = UUID.random.int_range(0, SCREEN_WIDTH)
+        var x = World.random.int_range(0, SCREEN_WIDTH)
         var y = SCREEN_HEIGHT/2 - 50
         return World.instance.createEntity("enemy3"
             ).setEnemy(true

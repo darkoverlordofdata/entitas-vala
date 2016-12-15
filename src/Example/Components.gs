@@ -171,66 +171,66 @@ namespace Entitas
         construct(componentsEnum : array of string, totalComponents : int=32)
             super(componentsEnum, totalComponents)
             /* Preallocate component pools*/
-            _boundsComponentPool = new Bag of BoundsComponent
+            _boundsComponentPool = new GLib.Queue of BoundsComponent
             for var i=1 to POOL_SIZE
-                _boundsComponentPool.push(new BoundsComponent())
+                _boundsComponentPool.push_head(new BoundsComponent())
 
             _bulletComponent = new BulletComponent()
-            _colorTweenComponentPool = new Bag of ColorTweenComponent
+            _colorTweenComponentPool = new GLib.Queue of ColorTweenComponent
             for var i=1 to POOL_SIZE
-                _colorTweenComponentPool.push(new ColorTweenComponent())
+                _colorTweenComponentPool.push_head(new ColorTweenComponent())
 
             _destroyComponent = new DestroyComponent()
 
             _enemyComponent = new EnemyComponent()
-            _expiresComponentPool = new Bag of ExpiresComponent
+            _expiresComponentPool = new GLib.Queue of ExpiresComponent
             for var i=1 to POOL_SIZE
-                _expiresComponentPool.push(new ExpiresComponent())
+                _expiresComponentPool.push_head(new ExpiresComponent())
 
             _firingComponent = new FiringComponent()
-            _healthComponentPool = new Bag of HealthComponent
+            _healthComponentPool = new GLib.Queue of HealthComponent
             for var i=1 to POOL_SIZE
-                _healthComponentPool.push(new HealthComponent())
-            _layerComponentPool = new Bag of LayerComponent
+                _healthComponentPool.push_head(new HealthComponent())
+            _layerComponentPool = new GLib.Queue of LayerComponent
             for var i=1 to POOL_SIZE
-                _layerComponentPool.push(new LayerComponent())
-            _lifeComponentPool = new Bag of LifeComponent
+                _layerComponentPool.push_head(new LayerComponent())
+            _lifeComponentPool = new GLib.Queue of LifeComponent
             for var i=1 to POOL_SIZE
-                _lifeComponentPool.push(new LifeComponent())
+                _lifeComponentPool.push_head(new LifeComponent())
 
             _mineComponent = new MineComponent()
-            _mouseComponentPool = new Bag of MouseComponent
+            _mouseComponentPool = new GLib.Queue of MouseComponent
             for var i=1 to POOL_SIZE
-                _mouseComponentPool.push(new MouseComponent())
+                _mouseComponentPool.push_head(new MouseComponent())
 
             _playerComponent = new PlayerComponent()
-            _positionComponentPool = new Bag of PositionComponent
+            _positionComponentPool = new GLib.Queue of PositionComponent
             for var i=1 to POOL_SIZE
-                _positionComponentPool.push(new PositionComponent())
-            _resourceComponentPool = new Bag of ResourceComponent
+                _positionComponentPool.push_head(new PositionComponent())
+            _resourceComponentPool = new GLib.Queue of ResourceComponent
             for var i=1 to POOL_SIZE
-                _resourceComponentPool.push(new ResourceComponent())
-            _scaleTweenComponentPool = new Bag of ScaleTweenComponent
+                _resourceComponentPool.push_head(new ResourceComponent())
+            _scaleTweenComponentPool = new GLib.Queue of ScaleTweenComponent
             for var i=1 to POOL_SIZE
-                _scaleTweenComponentPool.push(new ScaleTweenComponent())
-            _scaleComponentPool = new Bag of ScaleComponent
+                _scaleTweenComponentPool.push_head(new ScaleTweenComponent())
+            _scaleComponentPool = new GLib.Queue of ScaleComponent
             for var i=1 to POOL_SIZE
-                _scaleComponentPool.push(new ScaleComponent())
-            _scoreComponentPool = new Bag of ScoreComponent
+                _scaleComponentPool.push_head(new ScaleComponent())
+            _scoreComponentPool = new GLib.Queue of ScoreComponent
             for var i=1 to POOL_SIZE
-                _scoreComponentPool.push(new ScoreComponent())
-            _soundEffectComponentPool = new Bag of SoundEffectComponent
+                _scoreComponentPool.push_head(new ScoreComponent())
+            _soundEffectComponentPool = new GLib.Queue of SoundEffectComponent
             for var i=1 to POOL_SIZE
-                _soundEffectComponentPool.push(new SoundEffectComponent())
-            _textComponentPool = new Bag of TextComponent
+                _soundEffectComponentPool.push_head(new SoundEffectComponent())
+            _textComponentPool = new GLib.Queue of TextComponent
             for var i=1 to POOL_SIZE
-                _textComponentPool.push(new TextComponent())
-            _tintComponentPool = new Bag of TintComponent
+                _textComponentPool.push_head(new TextComponent())
+            _tintComponentPool = new GLib.Queue of TintComponent
             for var i=1 to POOL_SIZE
-                _tintComponentPool.push(new TintComponent())
-            _velocityComponentPool = new Bag of VelocityComponent
+                _tintComponentPool.push_head(new TintComponent())
+            _velocityComponentPool = new GLib.Queue of VelocityComponent
             for var i=1 to POOL_SIZE
-                _velocityComponentPool.push(new VelocityComponent())
+                _velocityComponentPool.push_head(new VelocityComponent())
 
 
         /** Entity: Bounds methods*/
@@ -253,7 +253,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addBounds(radius:double) : Entity
-            var c = _boundsComponentPool.length > 0 ? _boundsComponentPool.pop() : new BoundsComponent()
+            var c = _boundsComponentPool.length > 0 ? _boundsComponentPool.pop_head() : new BoundsComponent()
             c.radius = radius
             addComponent(Component.Bounds, c)
             return this
@@ -264,11 +264,11 @@ namespace Entitas
          */
         def replaceBounds(radius:double) : Entity
             var previousComponent = hasBounds ? this.bounds : null
-            var c = _boundsComponentPool.length>0? _boundsComponentPool.pop() : new BoundsComponent()
+            var c = _boundsComponentPool.length>0? _boundsComponentPool.pop_head() : new BoundsComponent()
             c.radius = radius
             replaceComponent(Component.Bounds, c) 
             if previousComponent != null
-                _boundsComponentPool.push(previousComponent)
+                _boundsComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -277,7 +277,7 @@ namespace Entitas
         def removeBounds() : Entity
             var c = bounds
             removeComponent(Component.Bounds) 
-            _boundsComponentPool.push(c)
+            _boundsComponentPool.push_head(c)
             return this
 
 
@@ -338,7 +338,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addColorTween(redMin:double,redMax:double,redSpeed:double,greenMin:double,greenMax:double,greenSpeed:double,blueMin:double,blueMax:double,blueSpeed:double,alphaMin:double,alphaMax:double,alphaSpeed:double,redAnimate:bool,greenAnimate:bool,blueAnimate:bool,alphaAnimate:bool,repeat:bool) : Entity
-            var c = _colorTweenComponentPool.length > 0 ? _colorTweenComponentPool.pop() : new ColorTweenComponent()
+            var c = _colorTweenComponentPool.length > 0 ? _colorTweenComponentPool.pop_head() : new ColorTweenComponent()
             c.redMin = redMin
             c.redMax = redMax
             c.redSpeed = redSpeed
@@ -381,7 +381,7 @@ namespace Entitas
          */
         def replaceColorTween(redMin:double,redMax:double,redSpeed:double,greenMin:double,greenMax:double,greenSpeed:double,blueMin:double,blueMax:double,blueSpeed:double,alphaMin:double,alphaMax:double,alphaSpeed:double,redAnimate:bool,greenAnimate:bool,blueAnimate:bool,alphaAnimate:bool,repeat:bool) : Entity
             var previousComponent = hasColorTween ? this.colorTween : null
-            var c = _colorTweenComponentPool.length>0? _colorTweenComponentPool.pop() : new ColorTweenComponent()
+            var c = _colorTweenComponentPool.length>0? _colorTweenComponentPool.pop_head() : new ColorTweenComponent()
             c.redMin = redMin
             c.redMax = redMax
             c.redSpeed = redSpeed
@@ -401,7 +401,7 @@ namespace Entitas
             c.repeat = repeat
             replaceComponent(Component.ColorTween, c) 
             if previousComponent != null
-                _colorTweenComponentPool.push(previousComponent)
+                _colorTweenComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -410,7 +410,7 @@ namespace Entitas
         def removeColorTween() : Entity
             var c = colorTween
             removeComponent(Component.ColorTween) 
-            _colorTweenComponentPool.push(c)
+            _colorTweenComponentPool.push_head(c)
             return this
 
 
@@ -476,7 +476,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addExpires(delay:double) : Entity
-            var c = _expiresComponentPool.length > 0 ? _expiresComponentPool.pop() : new ExpiresComponent()
+            var c = _expiresComponentPool.length > 0 ? _expiresComponentPool.pop_head() : new ExpiresComponent()
             c.delay = delay
             addComponent(Component.Expires, c)
             return this
@@ -487,11 +487,11 @@ namespace Entitas
          */
         def replaceExpires(delay:double) : Entity
             var previousComponent = hasExpires ? this.expires : null
-            var c = _expiresComponentPool.length>0? _expiresComponentPool.pop() : new ExpiresComponent()
+            var c = _expiresComponentPool.length>0? _expiresComponentPool.pop_head() : new ExpiresComponent()
             c.delay = delay
             replaceComponent(Component.Expires, c) 
             if previousComponent != null
-                _expiresComponentPool.push(previousComponent)
+                _expiresComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -500,7 +500,7 @@ namespace Entitas
         def removeExpires() : Entity
             var c = expires
             removeComponent(Component.Expires) 
-            _expiresComponentPool.push(c)
+            _expiresComponentPool.push_head(c)
             return this
 
 
@@ -546,7 +546,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addHealth(health:double,maximumHealth:double) : Entity
-            var c = _healthComponentPool.length > 0 ? _healthComponentPool.pop() : new HealthComponent()
+            var c = _healthComponentPool.length > 0 ? _healthComponentPool.pop_head() : new HealthComponent()
             c.health = health
             c.maximumHealth = maximumHealth
             addComponent(Component.Health, c)
@@ -559,12 +559,12 @@ namespace Entitas
          */
         def replaceHealth(health:double,maximumHealth:double) : Entity
             var previousComponent = hasHealth ? this.health : null
-            var c = _healthComponentPool.length>0? _healthComponentPool.pop() : new HealthComponent()
+            var c = _healthComponentPool.length>0? _healthComponentPool.pop_head() : new HealthComponent()
             c.health = health
             c.maximumHealth = maximumHealth
             replaceComponent(Component.Health, c) 
             if previousComponent != null
-                _healthComponentPool.push(previousComponent)
+                _healthComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -573,7 +573,7 @@ namespace Entitas
         def removeHealth() : Entity
             var c = health
             removeComponent(Component.Health) 
-            _healthComponentPool.push(c)
+            _healthComponentPool.push_head(c)
             return this
 
 
@@ -597,7 +597,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addLayer(ordinal:int) : Entity
-            var c = _layerComponentPool.length > 0 ? _layerComponentPool.pop() : new LayerComponent()
+            var c = _layerComponentPool.length > 0 ? _layerComponentPool.pop_head() : new LayerComponent()
             c.ordinal = ordinal
             addComponent(Component.Layer, c)
             return this
@@ -608,11 +608,11 @@ namespace Entitas
          */
         def replaceLayer(ordinal:int) : Entity
             var previousComponent = hasLayer ? this.layer : null
-            var c = _layerComponentPool.length>0? _layerComponentPool.pop() : new LayerComponent()
+            var c = _layerComponentPool.length>0? _layerComponentPool.pop_head() : new LayerComponent()
             c.ordinal = ordinal
             replaceComponent(Component.Layer, c) 
             if previousComponent != null
-                _layerComponentPool.push(previousComponent)
+                _layerComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -621,7 +621,7 @@ namespace Entitas
         def removeLayer() : Entity
             var c = layer
             removeComponent(Component.Layer) 
-            _layerComponentPool.push(c)
+            _layerComponentPool.push_head(c)
             return this
 
 
@@ -645,7 +645,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addLife(count:int) : Entity
-            var c = _lifeComponentPool.length > 0 ? _lifeComponentPool.pop() : new LifeComponent()
+            var c = _lifeComponentPool.length > 0 ? _lifeComponentPool.pop_head() : new LifeComponent()
             c.count = count
             addComponent(Component.Life, c)
             return this
@@ -656,11 +656,11 @@ namespace Entitas
          */
         def replaceLife(count:int) : Entity
             var previousComponent = hasLife ? this.life : null
-            var c = _lifeComponentPool.length>0? _lifeComponentPool.pop() : new LifeComponent()
+            var c = _lifeComponentPool.length>0? _lifeComponentPool.pop_head() : new LifeComponent()
             c.count = count
             replaceComponent(Component.Life, c) 
             if previousComponent != null
-                _lifeComponentPool.push(previousComponent)
+                _lifeComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -669,7 +669,7 @@ namespace Entitas
         def removeLife() : Entity
             var c = life
             removeComponent(Component.Life) 
-            _lifeComponentPool.push(c)
+            _lifeComponentPool.push_head(c)
             return this
 
 
@@ -715,7 +715,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addMouse(x:double,y:double) : Entity
-            var c = _mouseComponentPool.length > 0 ? _mouseComponentPool.pop() : new MouseComponent()
+            var c = _mouseComponentPool.length > 0 ? _mouseComponentPool.pop_head() : new MouseComponent()
             c.x = x
             c.y = y
             addComponent(Component.Mouse, c)
@@ -728,12 +728,12 @@ namespace Entitas
          */
         def replaceMouse(x:double,y:double) : Entity
             var previousComponent = hasMouse ? this.mouse : null
-            var c = _mouseComponentPool.length>0? _mouseComponentPool.pop() : new MouseComponent()
+            var c = _mouseComponentPool.length>0? _mouseComponentPool.pop_head() : new MouseComponent()
             c.x = x
             c.y = y
             replaceComponent(Component.Mouse, c) 
             if previousComponent != null
-                _mouseComponentPool.push(previousComponent)
+                _mouseComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -742,7 +742,7 @@ namespace Entitas
         def removeMouse() : Entity
             var c = mouse
             removeComponent(Component.Mouse) 
-            _mouseComponentPool.push(c)
+            _mouseComponentPool.push_head(c)
             return this
 
 
@@ -788,7 +788,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addPosition(x:double,y:double) : Entity
-            var c = _positionComponentPool.length > 0 ? _positionComponentPool.pop() : new PositionComponent()
+            var c = _positionComponentPool.length > 0 ? _positionComponentPool.pop_head() : new PositionComponent()
             c.x = x
             c.y = y
             addComponent(Component.Position, c)
@@ -801,12 +801,12 @@ namespace Entitas
          */
         def replacePosition(x:double,y:double) : Entity
             var previousComponent = hasPosition ? this.position : null
-            var c = _positionComponentPool.length>0? _positionComponentPool.pop() : new PositionComponent()
+            var c = _positionComponentPool.length>0? _positionComponentPool.pop_head() : new PositionComponent()
             c.x = x
             c.y = y
             replaceComponent(Component.Position, c) 
             if previousComponent != null
-                _positionComponentPool.push(previousComponent)
+                _positionComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -815,7 +815,7 @@ namespace Entitas
         def removePosition() : Entity
             var c = position
             removeComponent(Component.Position) 
-            _positionComponentPool.push(c)
+            _positionComponentPool.push_head(c)
             return this
 
 
@@ -841,7 +841,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addResource(path:string,sprite:Object?,bgd:bool) : Entity
-            var c = _resourceComponentPool.length > 0 ? _resourceComponentPool.pop() : new ResourceComponent()
+            var c = _resourceComponentPool.length > 0 ? _resourceComponentPool.pop_head() : new ResourceComponent()
             c.path = path
             c.sprite = sprite
             c.bgd = bgd
@@ -856,13 +856,13 @@ namespace Entitas
          */
         def replaceResource(path:string,sprite:Object?,bgd:bool) : Entity
             var previousComponent = hasResource ? this.resource : null
-            var c = _resourceComponentPool.length>0? _resourceComponentPool.pop() : new ResourceComponent()
+            var c = _resourceComponentPool.length>0? _resourceComponentPool.pop_head() : new ResourceComponent()
             c.path = path
             c.sprite = sprite
             c.bgd = bgd
             replaceComponent(Component.Resource, c) 
             if previousComponent != null
-                _resourceComponentPool.push(previousComponent)
+                _resourceComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -871,7 +871,7 @@ namespace Entitas
         def removeResource() : Entity
             var c = resource
             removeComponent(Component.Resource) 
-            _resourceComponentPool.push(c)
+            _resourceComponentPool.push_head(c)
             return this
 
 
@@ -899,7 +899,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addScaleTween(min:double,max:double,speed:double,repeat:bool,active:bool) : Entity
-            var c = _scaleTweenComponentPool.length > 0 ? _scaleTweenComponentPool.pop() : new ScaleTweenComponent()
+            var c = _scaleTweenComponentPool.length > 0 ? _scaleTweenComponentPool.pop_head() : new ScaleTweenComponent()
             c.min = min
             c.max = max
             c.speed = speed
@@ -918,7 +918,7 @@ namespace Entitas
          */
         def replaceScaleTween(min:double,max:double,speed:double,repeat:bool,active:bool) : Entity
             var previousComponent = hasScaleTween ? this.scaleTween : null
-            var c = _scaleTweenComponentPool.length>0? _scaleTweenComponentPool.pop() : new ScaleTweenComponent()
+            var c = _scaleTweenComponentPool.length>0? _scaleTweenComponentPool.pop_head() : new ScaleTweenComponent()
             c.min = min
             c.max = max
             c.speed = speed
@@ -926,7 +926,7 @@ namespace Entitas
             c.active = active
             replaceComponent(Component.ScaleTween, c) 
             if previousComponent != null
-                _scaleTweenComponentPool.push(previousComponent)
+                _scaleTweenComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -935,7 +935,7 @@ namespace Entitas
         def removeScaleTween() : Entity
             var c = scaleTween
             removeComponent(Component.ScaleTween) 
-            _scaleTweenComponentPool.push(c)
+            _scaleTweenComponentPool.push_head(c)
             return this
 
 
@@ -960,7 +960,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addScale(x:double,y:double) : Entity
-            var c = _scaleComponentPool.length > 0 ? _scaleComponentPool.pop() : new ScaleComponent()
+            var c = _scaleComponentPool.length > 0 ? _scaleComponentPool.pop_head() : new ScaleComponent()
             c.x = x
             c.y = y
             addComponent(Component.Scale, c)
@@ -973,12 +973,12 @@ namespace Entitas
          */
         def replaceScale(x:double,y:double) : Entity
             var previousComponent = hasScale ? this.scale : null
-            var c = _scaleComponentPool.length>0? _scaleComponentPool.pop() : new ScaleComponent()
+            var c = _scaleComponentPool.length>0? _scaleComponentPool.pop_head() : new ScaleComponent()
             c.x = x
             c.y = y
             replaceComponent(Component.Scale, c) 
             if previousComponent != null
-                _scaleComponentPool.push(previousComponent)
+                _scaleComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -987,7 +987,7 @@ namespace Entitas
         def removeScale() : Entity
             var c = scale
             removeComponent(Component.Scale) 
-            _scaleComponentPool.push(c)
+            _scaleComponentPool.push_head(c)
             return this
 
 
@@ -1011,7 +1011,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addScore(value:double) : Entity
-            var c = _scoreComponentPool.length > 0 ? _scoreComponentPool.pop() : new ScoreComponent()
+            var c = _scoreComponentPool.length > 0 ? _scoreComponentPool.pop_head() : new ScoreComponent()
             c.value = value
             addComponent(Component.Score, c)
             return this
@@ -1022,11 +1022,11 @@ namespace Entitas
          */
         def replaceScore(value:double) : Entity
             var previousComponent = hasScore ? this.score : null
-            var c = _scoreComponentPool.length>0? _scoreComponentPool.pop() : new ScoreComponent()
+            var c = _scoreComponentPool.length>0? _scoreComponentPool.pop_head() : new ScoreComponent()
             c.value = value
             replaceComponent(Component.Score, c) 
             if previousComponent != null
-                _scoreComponentPool.push(previousComponent)
+                _scoreComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -1035,7 +1035,7 @@ namespace Entitas
         def removeScore() : Entity
             var c = score
             removeComponent(Component.Score) 
-            _scoreComponentPool.push(c)
+            _scoreComponentPool.push_head(c)
             return this
 
 
@@ -1059,7 +1059,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addSoundEffect(effect:int) : Entity
-            var c = _soundEffectComponentPool.length > 0 ? _soundEffectComponentPool.pop() : new SoundEffectComponent()
+            var c = _soundEffectComponentPool.length > 0 ? _soundEffectComponentPool.pop_head() : new SoundEffectComponent()
             c.effect = effect
             addComponent(Component.SoundEffect, c)
             return this
@@ -1070,11 +1070,11 @@ namespace Entitas
          */
         def replaceSoundEffect(effect:int) : Entity
             var previousComponent = hasSoundEffect ? this.soundEffect : null
-            var c = _soundEffectComponentPool.length>0? _soundEffectComponentPool.pop() : new SoundEffectComponent()
+            var c = _soundEffectComponentPool.length>0? _soundEffectComponentPool.pop_head() : new SoundEffectComponent()
             c.effect = effect
             replaceComponent(Component.SoundEffect, c) 
             if previousComponent != null
-                _soundEffectComponentPool.push(previousComponent)
+                _soundEffectComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -1083,7 +1083,7 @@ namespace Entitas
         def removeSoundEffect() : Entity
             var c = soundEffect
             removeComponent(Component.SoundEffect) 
-            _soundEffectComponentPool.push(c)
+            _soundEffectComponentPool.push_head(c)
             return this
 
 
@@ -1108,7 +1108,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addText(text:string,sprite:Object?) : Entity
-            var c = _textComponentPool.length > 0 ? _textComponentPool.pop() : new TextComponent()
+            var c = _textComponentPool.length > 0 ? _textComponentPool.pop_head() : new TextComponent()
             c.text = text
             c.sprite = sprite
             addComponent(Component.Text, c)
@@ -1121,12 +1121,12 @@ namespace Entitas
          */
         def replaceText(text:string,sprite:Object?) : Entity
             var previousComponent = hasText ? this.text : null
-            var c = _textComponentPool.length>0? _textComponentPool.pop() : new TextComponent()
+            var c = _textComponentPool.length>0? _textComponentPool.pop_head() : new TextComponent()
             c.text = text
             c.sprite = sprite
             replaceComponent(Component.Text, c) 
             if previousComponent != null
-                _textComponentPool.push(previousComponent)
+                _textComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -1135,7 +1135,7 @@ namespace Entitas
         def removeText() : Entity
             var c = text
             removeComponent(Component.Text) 
-            _textComponentPool.push(c)
+            _textComponentPool.push_head(c)
             return this
 
 
@@ -1162,7 +1162,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addTint(r:int,g:int,b:int,a:int) : Entity
-            var c = _tintComponentPool.length > 0 ? _tintComponentPool.pop() : new TintComponent()
+            var c = _tintComponentPool.length > 0 ? _tintComponentPool.pop_head() : new TintComponent()
             c.r = r
             c.g = g
             c.b = b
@@ -1179,14 +1179,14 @@ namespace Entitas
          */
         def replaceTint(r:int,g:int,b:int,a:int) : Entity
             var previousComponent = hasTint ? this.tint : null
-            var c = _tintComponentPool.length>0? _tintComponentPool.pop() : new TintComponent()
+            var c = _tintComponentPool.length>0? _tintComponentPool.pop_head() : new TintComponent()
             c.r = r
             c.g = g
             c.b = b
             c.a = a
             replaceComponent(Component.Tint, c) 
             if previousComponent != null
-                _tintComponentPool.push(previousComponent)
+                _tintComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -1195,7 +1195,7 @@ namespace Entitas
         def removeTint() : Entity
             var c = tint
             removeComponent(Component.Tint) 
-            _tintComponentPool.push(c)
+            _tintComponentPool.push_head(c)
             return this
 
 
@@ -1220,7 +1220,7 @@ namespace Entitas
          * @return entitas.Entity
          */
         def addVelocity(x:double,y:double) : Entity
-            var c = _velocityComponentPool.length > 0 ? _velocityComponentPool.pop() : new VelocityComponent()
+            var c = _velocityComponentPool.length > 0 ? _velocityComponentPool.pop_head() : new VelocityComponent()
             c.x = x
             c.y = y
             addComponent(Component.Velocity, c)
@@ -1233,12 +1233,12 @@ namespace Entitas
          */
         def replaceVelocity(x:double,y:double) : Entity
             var previousComponent = hasVelocity ? this.velocity : null
-            var c = _velocityComponentPool.length>0? _velocityComponentPool.pop() : new VelocityComponent()
+            var c = _velocityComponentPool.length>0? _velocityComponentPool.pop_head() : new VelocityComponent()
             c.x = x
             c.y = y
             replaceComponent(Component.Velocity, c) 
             if previousComponent != null
-                _velocityComponentPool.push(previousComponent)
+                _velocityComponentPool.push_head(previousComponent)
             return this
 
         /**
@@ -1247,58 +1247,58 @@ namespace Entitas
         def removeVelocity() : Entity
             var c = velocity
             removeComponent(Component.Velocity) 
-            _velocityComponentPool.push(c)
+            _velocityComponentPool.push_head(c)
             return this
 
 
-        /** @type entitas.utils.Bag<Bounds> */
-        _boundsComponentPool : Bag of BoundsComponent
+        /** @type entitas.utils.GLib.Queue<Bounds> */
+        _boundsComponentPool : GLib.Queue of BoundsComponent
 
         /** @type Bullet */
         _bulletComponent : BulletComponent
-        /** @type entitas.utils.Bag<ColorTween> */
-        _colorTweenComponentPool : Bag of ColorTweenComponent
+        /** @type entitas.utils.GLib.Queue<ColorTween> */
+        _colorTweenComponentPool : GLib.Queue of ColorTweenComponent
 
         /** @type Destroy */
         _destroyComponent : DestroyComponent
 
         /** @type Enemy */
         _enemyComponent : EnemyComponent
-        /** @type entitas.utils.Bag<Expires> */
-        _expiresComponentPool : Bag of ExpiresComponent
+        /** @type entitas.utils.GLib.Queue<Expires> */
+        _expiresComponentPool : GLib.Queue of ExpiresComponent
 
         /** @type Firing */
         _firingComponent : FiringComponent
-        /** @type entitas.utils.Bag<Health> */
-        _healthComponentPool : Bag of HealthComponent
-        /** @type entitas.utils.Bag<Layer> */
-        _layerComponentPool : Bag of LayerComponent
-        /** @type entitas.utils.Bag<Life> */
-        _lifeComponentPool : Bag of LifeComponent
+        /** @type entitas.utils.GLib.Queue<Health> */
+        _healthComponentPool : GLib.Queue of HealthComponent
+        /** @type entitas.utils.GLib.Queue<Layer> */
+        _layerComponentPool : GLib.Queue of LayerComponent
+        /** @type entitas.utils.GLib.Queue<Life> */
+        _lifeComponentPool : GLib.Queue of LifeComponent
 
         /** @type Mine */
         _mineComponent : MineComponent
-        /** @type entitas.utils.Bag<Mouse> */
-        _mouseComponentPool : Bag of MouseComponent
+        /** @type entitas.utils.GLib.Queue<Mouse> */
+        _mouseComponentPool : GLib.Queue of MouseComponent
 
         /** @type Player */
         _playerComponent : PlayerComponent
-        /** @type entitas.utils.Bag<Position> */
-        _positionComponentPool : Bag of PositionComponent
-        /** @type entitas.utils.Bag<Resource> */
-        _resourceComponentPool : Bag of ResourceComponent
-        /** @type entitas.utils.Bag<ScaleTween> */
-        _scaleTweenComponentPool : Bag of ScaleTweenComponent
-        /** @type entitas.utils.Bag<Scale> */
-        _scaleComponentPool : Bag of ScaleComponent
-        /** @type entitas.utils.Bag<Score> */
-        _scoreComponentPool : Bag of ScoreComponent
-        /** @type entitas.utils.Bag<SoundEffect> */
-        _soundEffectComponentPool : Bag of SoundEffectComponent
-        /** @type entitas.utils.Bag<Text> */
-        _textComponentPool : Bag of TextComponent
-        /** @type entitas.utils.Bag<Tint> */
-        _tintComponentPool : Bag of TintComponent
-        /** @type entitas.utils.Bag<Velocity> */
-        _velocityComponentPool : Bag of VelocityComponent
+        /** @type entitas.utils.GLib.Queue<Position> */
+        _positionComponentPool : GLib.Queue of PositionComponent
+        /** @type entitas.utils.GLib.Queue<Resource> */
+        _resourceComponentPool : GLib.Queue of ResourceComponent
+        /** @type entitas.utils.GLib.Queue<ScaleTween> */
+        _scaleTweenComponentPool : GLib.Queue of ScaleTweenComponent
+        /** @type entitas.utils.GLib.Queue<Scale> */
+        _scaleComponentPool : GLib.Queue of ScaleComponent
+        /** @type entitas.utils.GLib.Queue<Score> */
+        _scoreComponentPool : GLib.Queue of ScoreComponent
+        /** @type entitas.utils.GLib.Queue<SoundEffect> */
+        _soundEffectComponentPool : GLib.Queue of SoundEffectComponent
+        /** @type entitas.utils.GLib.Queue<Text> */
+        _textComponentPool : GLib.Queue of TextComponent
+        /** @type entitas.utils.GLib.Queue<Tint> */
+        _tintComponentPool : GLib.Queue of TintComponent
+        /** @type entitas.utils.GLib.Queue<Velocity> */
+        _velocityComponentPool : GLib.Queue of VelocityComponent
 

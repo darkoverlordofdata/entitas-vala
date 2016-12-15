@@ -41,8 +41,6 @@ LIBS=--pkg glib-2.0 \
 # Build Entitas with generated code Example
 #
 EXAMPLE=src/Object.vala \
-		src/Entitas/Utils/UUID.vala \
-		src/Entitas/Utils/Bag.gs \
 		src/Entitas/Exceptions.gs \
 		src/Entitas/Events/EntityReleased.gs \
 		src/Entitas/Events/ComponentReplaced.gs \
@@ -57,7 +55,6 @@ EXAMPLE=src/Object.vala \
 		src/Entitas/EntityBase.gs \
 		src/Entitas/Group.gs \
 		src/Entitas/Matcher.gs \
-		src/Entitas/WorldBase.gs \
 		src/Entitas/World.gs \
 		src/Bosco/Color.gs \
 		src/Bosco/Sprite.gs \
