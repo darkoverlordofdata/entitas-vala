@@ -54,8 +54,8 @@ namespace Entitas
          * @name entitas.Matcher#noneOfIndices */
         prop readonly noneOfIndices : array of int
 
-        _indices : array of int
-        _toStringCache : string
+        _indices        : array of int
+        _toStringCache  : string
 
         construct()
             _id = (Matcher.uniqueId++).to_string()

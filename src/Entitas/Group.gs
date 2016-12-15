@@ -33,11 +33,11 @@ namespace Entitas
             get
                 return _matcher
 
-        _matcher : IMatcher
-        _entities : dict of string, Entity
-        _entitiesCache : array of Entity
-        _singleEntityCache : Entity
-        _toStringCache : string
+        _matcher            : IMatcher
+        _entities           : dict of string, Entity
+        _entitiesCache      : array of Entity
+        _singleEntityCache  : Entity
+        _toStringCache      : string
 
         construct(matcher : IMatcher)
             _entities = new dict of string, Entity

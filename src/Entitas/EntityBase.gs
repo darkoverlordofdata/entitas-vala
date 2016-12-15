@@ -53,21 +53,21 @@ namespace Entitas
          * @type entitas.ISignal */
         prop readonly onComponentReplaced : ComponentReplaced
 
-        first : static bool = true
-        maxEntities : static int = 128
-        incEntities : static int = 64
-        db_index : static int = 0
-        db_id : int = 0
-        ic : int = 0
-        _components : static array of IComponent
+        first           : static bool = true
+        maxEntities     : static int = 128
+        incEntities     : static int = 64
+        db_index        : static int = 0
+        _components     : static array of IComponent
 
-        _world : World
-        _toStringCache : string
-        _componentsCache : array of IComponent
-        _componentIndicesCache : array of int
-        _componentsEnum : unowned array of string
-        _totalComponents : int
+        db_id           : int = 0
+        ic              : int = 0
+        _totalComponents: int
         _componentCount : int
+        _toStringCache  : string
+        _componentsEnum : unowned array of string
+        _world          : World
+        _componentsCache: array of IComponent
+        _indiceCache    : array of int
 
         /**
          * The basic game object. Everything is an entity with components that
@@ -97,7 +97,7 @@ namespace Entitas
             _onComponentAdded = new EntityChanged()
             _onComponentRemoved = new EntityChanged()
             _onComponentReplaced = new ComponentReplaced()
-            _componentIndicesCache = new array of int[totalComponents]
+            _indiceCache = new array of int[totalComponents]
             _componentsEnum = componentsEnum
             _world = World.instance
 
@@ -132,7 +132,7 @@ namespace Entitas
 
             _components[ic+index] = component
             _componentsCache = null
-            _componentIndicesCache = null
+            _indiceCache = null
             _toStringCache = null
             _onComponentAdded.dispatch((Entity)this, index, component)
             return (Entity)this
@@ -181,7 +181,7 @@ namespace Entitas
                 _componentsCache = null
                 if replacement == null
                     _components[ic+index] = null
-                    _componentIndicesCache = null
+                    _indiceCache = null
                     _toStringCache = null
                     _onComponentRemoved.dispatch((Entity)this, index, previousComponent)
 
@@ -221,15 +221,15 @@ namespace Entitas
          * @returns Array<number>
          */
         def getComponentIndices() : array of int
-            if _componentIndicesCache == null
+            if _indiceCache == null
                 var indices = new array of int[0]
                 var index = 0
                 for var i = ic to (ic+_componentCount-1)
                     if _components[i] != null
                         indices+= index
                     index++
-                _componentIndicesCache = indices
-            return _componentIndicesCache
+                _indiceCache = indices
+            return _indiceCache
 
          /**
           * HasComponent
