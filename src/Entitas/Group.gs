@@ -186,6 +186,6 @@ namespace Entitas
             if _toStringCache == null
                 var sb = new array of string[0]
                 for var index in _matcher.indices
-                    sb += World.componentsEnum[index].replace("Component", "")
+                    sb += World.components[index].replace("Component", "")
                 _toStringCache = "Group(" + string.joinv(",", sb) + ")"
             return _toStringCache

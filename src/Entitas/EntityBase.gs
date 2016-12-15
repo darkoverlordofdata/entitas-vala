@@ -10,11 +10,6 @@ namespace Entitas
         /**
          * @static
          * @type number */
-        instanceIndex : static int = 0
-
-        /**
-         * @static
-         * @type number */
         size : static int = 0
 
         /**
@@ -332,3 +327,5 @@ namespace Entitas
                 _onEntityReleased.dispatch((Entity)this)
             else if _refCount < 0
                 raise new EcsException.EntityIsAlreadyReleased("%s:%s", id, name)
+
+

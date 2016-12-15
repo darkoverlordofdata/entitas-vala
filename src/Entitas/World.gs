@@ -1,6 +1,6 @@
 [indent=4]
 /**
- * Base class for World
+ * World
  */
 uses Gee
 
@@ -8,18 +8,28 @@ namespace Entitas
 
     class World : Object
 
-        componentsEnum:  static array of string
+        /**
+         * A list of component names
+         * @type array of string
+         * @name entitas.World#components */
+        prop static readonly components: array of string
 
-        totalComponents: static int 
+        /**
+         * The world singleton instance
+         * @type World
+         * @name entitas.World#instance */
+        prop static readonly instance : World
 
-        instance: static World 
-
-        random : static Rand = new Rand();
+        /**
+         * Utility prng
+         * @type Rand
+         * @name entitas.World#components */
+        prop static readonly random : Rand
 
         /**
          * The total number of components in this pool
          * @type number
-         * @name entitas.Pool#totalComponents */
+         * @name entitas.World#totalComponents */
         prop componentsCount : int
             get
                 return _totalComponents
@@ -27,7 +37,7 @@ namespace Entitas
         /**
          * Count of active entities
          * @type number
-         * @name entitas.Pool#count */
+         * @name entitas.World#count */
         prop count : int
             get
                 return _entities.size
@@ -35,7 +45,7 @@ namespace Entitas
         /**
          * Count of entities waiting to be recycled
          * @type number
-         * @name entitas.Pool#reusableEntitiesCount */
+         * @name entitas.World#reusableEntitiesCount */
         prop reusableEntitiesCount : int
             get
                 return (int)_reusableEntities.length
@@ -43,7 +53,7 @@ namespace Entitas
         /**
          * Count of entities that sill have references
          * @type number
-         * @name entitas.Pool#retainedEntitiesCount */
+         * @name entitas.World#retainedEntitiesCount */
         prop retainedEntitiesCount : int
             get
                 return _retainedEntities.size
@@ -83,7 +93,6 @@ namespace Entitas
         _totalComponents : int = 0
         _creationIndex : int = 0
         _entitiesCache : array of Entity
-        //_uuid : Utils.UUID
 
         _initializeSystems : array of IInitializeSystem
         _executeSystems : array of IExecuteSystem
@@ -94,7 +103,10 @@ namespace Entitas
          * @param number startCreationIndex
          */
         construct(components : array of string, startCreationIndex : int=0)
-            World.instance = (World)this
+            World._random = new Rand()
+            World._instance = this
+            World._components = components
+            
             _onGroupCreated = new GroupsChanged()
             _onEntityCreated = new WorldChanged()
             _onEntityDestroyed = new WorldChanged()
@@ -112,9 +124,6 @@ namespace Entitas
             _groups = new dict of string, Group
             _initializeSystems = new array of IInitializeSystem[0]
             _executeSystems = new array of IExecuteSystem[0]
-            World.componentsEnum = components
-            World.totalComponents = _totalComponents
-            //new Entitas.UUID() /* initialize static fields */
 
 
         /**
@@ -125,7 +134,7 @@ namespace Entitas
         def createEntity(name : string) : Entity
             var entity = _reusableEntities.length > 0 ? _reusableEntities.pop_head() : new Entity(_componentsEnum, _totalComponents)
             //entity.initialize(name, UUID.randomUUID(), _creationIndex++)
-            entity.initialize(name, guid(), _creationIndex++)
+            entity.initialize(name, uidgen(), _creationIndex++)
             _entities[entity.id] = entity
             _entitiesCache = new array of Entity[0]
             entity.onComponentAdded.add(updateGroupsComponentAddedOrRemoved)
@@ -133,7 +142,7 @@ namespace Entitas
             entity.onComponentReplaced.add(updateGroupsComponentReplaced)
             entity.onEntityReleased.add(onEntityReleased)
 
-            onEntityCreated.dispatch((World)this, entity)
+            onEntityCreated.dispatch(this, entity)
             return entity
 
 
@@ -147,10 +156,10 @@ namespace Entitas
 
             _entities.unset(entity.id)
             _entitiesCache = new array of Entity[0]
-            _onEntityWillBeDestroyed.dispatch((World)this, entity)
+            _onEntityWillBeDestroyed.dispatch(this, entity)
             entity.destroy()
 
-            _onEntityDestroyed.dispatch((World)this, entity)
+            _onEntityDestroyed.dispatch(this, entity)
 
             if entity.refCount == 1
                 entity.onEntityReleased.remove(onEntityReleased)
@@ -200,7 +209,7 @@ namespace Entitas
          */
         def add(system : ISystem) : World
             if system isa ISetWorld
-                ((ISetWorld)system).setWorld((World)this)
+                ((ISetWorld)system).setWorld(this)
 
             if system isa IInitializeSystem
                 _initializeSystems += (IInitializeSystem)system
@@ -208,7 +217,7 @@ namespace Entitas
             if system isa IExecuteSystem
                 _executeSystems += (IExecuteSystem)system
 
-            return (World)this
+            return this
 
         /**
          * Initialize Systems
@@ -252,7 +261,7 @@ namespace Entitas
                     if _groupsForIndex[index] == null
                         _groupsForIndex[index] = new ArrayList of Group
                     _groupsForIndex[index].add(group)
-                _onGroupCreated.dispatch((World)this, group)
+                _onGroupCreated.dispatch(this, group)
             return group
 
 
@@ -298,7 +307,7 @@ namespace Entitas
             _reusableEntities.push_head(entity)
 
 
-        hex: array of string = { // hex identity values 0-255
+        _hex: array of string = { // hex identity values 0-255
             "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0a", "0b", "0c", "0d", "0e", "0f",
             "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "1a", "1b", "1c", "1d", "1e", "1f",
             "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "2a", "2b", "2c", "2d", "2e", "2f",
@@ -320,12 +329,16 @@ namespace Entitas
         * Fast UUID generator, RFC4122 version 4 compliant
         * format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
         *
+        * uid is used as id for entities for better distribution 
+        * in hash tables than an incrementing id
+        *
+        *
         * @author Jeff Ward (jcward.com).
         * @license MIT license
         * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
         **/
 
-        def guid(): string
+        def private uidgen(): string
 
 
             var d0 = random.int_range(0, 0xffff)
@@ -352,24 +365,24 @@ namespace Entitas
 
             var sb = new StringBuilder()
 
-            sb.append(hex[hex00])
-            sb.append(hex[hex01])
-            sb.append(hex[hex02])
+            sb.append(_hex[hex00])
+            sb.append(_hex[hex01])
+            sb.append(_hex[hex02])
             sb.append("-")
-            sb.append(hex[hex03])
-            sb.append(hex[hex04])
+            sb.append(_hex[hex03])
+            sb.append(_hex[hex04])
             sb.append("-")
-            sb.append(hex[hex05])
-            sb.append(hex[hex06])
+            sb.append(_hex[hex05])
+            sb.append(_hex[hex06])
             sb.append("-")
-            sb.append(hex[hex07])
-            sb.append(hex[hex08])
+            sb.append(_hex[hex07])
+            sb.append(_hex[hex08])
             sb.append("-")
-            sb.append(hex[hex09])
-            sb.append(hex[hex10])
-            sb.append(hex[hex11])
-            sb.append(hex[hex12])
-            sb.append(hex[hex13])
-            sb.append(hex[hex14])
+            sb.append(_hex[hex09])
+            sb.append(_hex[hex10])
+            sb.append(_hex[hex11])
+            sb.append(_hex[hex12])
+            sb.append(_hex[hex13])
+            sb.append(_hex[hex14])
 
             return sb.str

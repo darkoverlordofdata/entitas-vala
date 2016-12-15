@@ -144,7 +144,7 @@ namespace Entitas
         def static componentsToString(indexArray : array of int) : string
             var sb = new array of string[0]
             for var index in indexArray
-                sb += World.componentsEnum[index-1].replace("Component", "")
+                sb += World.components[index-1].replace("Component", "")
             return string.joinv(",", sb)
 
         def static listToArray(l : list of int) : array of int
