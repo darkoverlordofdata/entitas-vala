@@ -5,10 +5,10 @@
  *
  */
 [indent=4]
-uses
-    Bosco
-    Entitas
-    SDL
+uses Bosco
+uses Entitas
+uses SDL
+uses SDLTTF
 
 init
     var game = new ShmupWarz.Game()
@@ -27,8 +27,10 @@ namespace ShmupWarz
 
         world : World
         player : PlayerInputSystem
+        arial: Font
 
         construct()
+            super()
             name = "Shmup Warz"
             width = SCREEN_WIDTH
             height = SCREEN_HEIGHT
@@ -49,6 +51,10 @@ namespace ShmupWarz
         */
         def override Initialize():bool
             if super.Initialize()
+                arial = new Font("res/fonts/TitanOne-Regular.ttf", 20)
+                if arial == null
+                    print "Failed to load font! SDL Error: %s", SDL.get_error()
+
 
                 world = new World(components)
                 world.add(new MovementSystem(this))
@@ -62,7 +68,7 @@ namespace ShmupWarz
                 world.add(new RemoveOffscreenShipsSystem(this))
                 world.add(new ViewManagerSystem(this))
                 world.add(new RenderPositionSystem(this))
-                // world.add(HealthRenderSystem())
+                world.add(new HealthRenderSystem(this))
                 world.add(new HudRenderSystem(this))
                 world.add(new DestroySystem(this))
                 world.initialize()

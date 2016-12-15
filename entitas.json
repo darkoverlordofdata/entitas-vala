@@ -80,6 +80,10 @@
     "SoundEffect": [
       "effect:int"
     ],
+    "Text": [
+      "text:string",
+      "sprite:Object?"      
+    ],
     "Tint": [
         "r:int",
         "g:int",
@@ -109,6 +113,11 @@
     "ExpiringSystem": [
       "ISetWorld",
       "IExecuteSystem"
+    ],
+    "HealthRenderSystem": [
+      "ISetWorld",
+      "IExecuteSystem",
+      "IInitializeSystem"
     ],
     "MovementSystem": [
       "ISetWorld",

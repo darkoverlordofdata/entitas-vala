@@ -38,9 +38,7 @@ LIBS=--pkg glib-2.0 \
 		--pkg sdl2-mixer \
 		--pkg gio-2.0 
 #
-
-
-# source code for this project
+# Build Entitas with generated code Example
 #
 EXAMPLE=src/Object.vala \
 		src/Entitas/Utils/UUID.vala \
@@ -61,6 +59,7 @@ EXAMPLE=src/Object.vala \
 		src/Entitas/Matcher.gs \
 		src/Entitas/WorldBase.gs \
 		src/Entitas/World.gs \
+		src/Bosco/Color.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
 		src/Example/Entities.gs \
@@ -72,6 +71,7 @@ EXAMPLE=src/Object.vala \
 		src/Example/Systems/RenderPositionSystem.gs \
 		src/Example/Systems/ViewManagerSystem.gs \
 		src/Example/Systems/PlayerInputSystem.gs \
+		src/Example/Systems/HealthRenderSystem.gs \
 		src/Example/Systems/EntitySpawningTimerSystem.gs \
 		src/Example/Systems/CollisionSystem.gs \
 		src/Example/Systems/RemoveOffscreenShipsSystem.gs \
@@ -81,7 +81,7 @@ EXAMPLE=src/Object.vala \
 		src/Example/Game.gs
 
 #
-# tests for this project
+# Build Entitas with Tests
 #
 TESTING=src/Object.vala \
 		src/Entitas/Utils/UUID.vala \
@@ -98,11 +98,11 @@ TESTING=src/Object.vala \
 		src/Entitas/Interfaces/ISystem.vala \
 		src/Entitas/Interfaces/IMatcher.vala \
 		src/Entitas/EntityBase.gs \
-		src/Entitas/Entity.vala \
+		src/Entitas/Entity.gs \
 		src/Entitas/Group.gs \
 		src/Entitas/Matcher.gs \
 		src/Entitas/WorldBase.gs \
-		src/Entitas/World.vala \
+		src/Entitas/World.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
 		test/Vunny.gs \
@@ -112,21 +112,21 @@ TESTING=src/Object.vala \
 
 
 default: $(BIN)/$(NAME)
-$(BIN)/$(NAME): $(EXAMPLE) $(APP)
+$(BIN)/$(NAME): $(EXAMPLE) 
 	-mkdir -p $(BIN)
 	cp -R --force $(RES) $(BIN)
 	$(CC) $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) $(EXAMPLE) -o $(BIN)/$(NAME)
 
 
 debug: debug/$(BIN)/$(NAME)
-debug/$(BIN)/$(NAME): $(SOURCES) $(TST)
+debug/$(BIN)/$(NAME): $(EXAMPLE) 
 	-mkdir -p $(BIN)
 	cp -R --force $(RES) $(BIN)
-	$(CC) $(DEBUG) $(LIBS) $(CLIBS) $(CFLAGS) $(SOURCES) -o $(BIN)/$(NAME)
+	$(CC) $(DEBUG) $(LIBS) $(CLIBS) $(CFLAGS) $(EXAMPLE) -o $(BIN)/$(NAME)
 
 
 test: test/$(BIN)/test
-test/$(BIN)/test: $(BASELIB) $(TST)
+test/$(BIN)/test: $(TESTING)
 	-mkdir -p test/$(BIN)
 	cp -R --force $(RES) test/$(BIN)
 	$(CC) $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) $(TESTING) -o test/$(BIN)/test

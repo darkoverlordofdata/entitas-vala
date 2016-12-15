@@ -5,10 +5,8 @@
  *
  */
 [indent=4]
-uses
-    //Bosco
-    Entitas
-    GLib
+uses Entitas
+uses GLib
 
 namespace ShmupWarz
 
@@ -38,7 +36,6 @@ namespace ShmupWarz
         PEW
         ASPLODE
         SMALLASPLODE
-
 
     /**
     *  Create Background
@@ -158,6 +155,7 @@ namespace ShmupWarz
             ).addVelocity(0, 40
             ).addLayer(Layer.ACTORS_1
             ).addPosition(x, y
+            ).addText("", null
             ).addResource("res/images/enemy1.png", null, false)
 
 
@@ -174,6 +172,7 @@ namespace ShmupWarz
             ).addVelocity(0, 30
             ).addLayer(Layer.ACTORS_2
             ).addPosition(x, y
+            ).addText("", null
             ).addResource("res/images/enemy2.png", null, false)
 
 
@@ -190,6 +189,7 @@ namespace ShmupWarz
             ).addVelocity(0, 20
             ).addLayer(Layer.ACTORS_3
             ).addPosition(x, y
+            ).addText("", null
             ).addResource("res/images/enemy3.png", null, false)
 
 

@@ -31,6 +31,7 @@ namespace Entitas
         "ScaleComponent",
         "ScoreComponent",
         "SoundEffectComponent",
+        "TextComponent",
         "TintComponent",
         "VelocityComponent",
         "ComponentsCount"
@@ -56,6 +57,7 @@ namespace Entitas
         Scale
         Score
         SoundEffect
+        Text
         Tint
         Velocity
         ComponentsCount
@@ -145,6 +147,10 @@ namespace Entitas
     class SoundEffectComponent : Object implements IComponent 
         effect : int 
 
+    class TextComponent : Object implements IComponent 
+        text : string 
+        sprite : Object 
+
     class TintComponent : Object implements IComponent 
         r : int 
         g : int 
@@ -216,6 +222,9 @@ namespace Entitas
             _soundEffectComponentPool = new Bag of SoundEffectComponent
             for var i=1 to POOL_SIZE
                 _soundEffectComponentPool.push(new SoundEffectComponent())
+            _textComponentPool = new Bag of TextComponent
+            for var i=1 to POOL_SIZE
+                _textComponentPool.push(new TextComponent())
             _tintComponentPool = new Bag of TintComponent
             for var i=1 to POOL_SIZE
                 _tintComponentPool.push(new TintComponent())
@@ -1078,6 +1087,58 @@ namespace Entitas
             return this
 
 
+        /** Entity: Text methods*/
+
+        /** @type Text */
+        prop text : TextComponent
+            get
+                return (TextComponent)getComponent(Component.Text)
+
+        /** @type boolean */
+        prop hasText : bool
+            get
+                return hasComponent(Component.Text)
+ 
+        def clearTextComponentPool()
+            _textComponentPool.clear()
+
+        /**
+         * @param text string
+         * @param sprite Object
+         * @return entitas.Entity
+         */
+        def addText(text:string,sprite:Object?) : Entity
+            var c = _textComponentPool.length > 0 ? _textComponentPool.pop() : new TextComponent()
+            c.text = text
+            c.sprite = sprite
+            addComponent(Component.Text, c)
+            return this
+
+        /**
+         * @param text string
+         * @param sprite Object
+         * @return entitas.Entity
+         */
+        def replaceText(text:string,sprite:Object?) : Entity
+            var previousComponent = hasText ? this.text : null
+            var c = _textComponentPool.length>0? _textComponentPool.pop() : new TextComponent()
+            c.text = text
+            c.sprite = sprite
+            replaceComponent(Component.Text, c) 
+            if previousComponent != null
+                _textComponentPool.push(previousComponent)
+            return this
+
+        /**
+         * @returns entitas.Entity
+         */
+        def removeText() : Entity
+            var c = text
+            removeComponent(Component.Text) 
+            _textComponentPool.push(c)
+            return this
+
+
         /** Entity: Tint methods*/
 
         /** @type Tint */
@@ -1234,6 +1295,8 @@ namespace Entitas
         _scoreComponentPool : Bag of ScoreComponent
         /** @type entitas.utils.Bag<SoundEffect> */
         _soundEffectComponentPool : Bag of SoundEffectComponent
+        /** @type entitas.utils.Bag<Text> */
+        _textComponentPool : Bag of TextComponent
         /** @type entitas.utils.Bag<Tint> */
         _tintComponentPool : Bag of TintComponent
         /** @type entitas.utils.Bag<Velocity> */

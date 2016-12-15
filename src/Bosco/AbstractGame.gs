@@ -17,6 +17,8 @@ uses SDLTTF
 
 namespace Bosco
 
+
+
     class AbstractGame : Object
 
         name : string
@@ -26,6 +28,7 @@ namespace Bosco
         window : Window
         renderer : Renderer
         sprites : GenericArray of Sprite
+        onetime : list of Sprite = new list of Sprite
         keys : array of uint8 = new array of uint8[255]
         
         prop readonly delta : double
@@ -42,6 +45,10 @@ namespace Bosco
         _t1: double = 0.0
         _t2: double = 0.0
         _t3: double = 0.0
+
+        construct() // initialize bosco
+            new Bosco.Color()
+
 
         def Run() : int
 
@@ -83,12 +90,10 @@ namespace Bosco
                         _currentFps = (double)_frames / _elapsed
                         _elapsed = 0.0
                         _frames = 0
-                        var s = "%2.2f".printf(_currentFps).substring(0, 5)
-                        _fpsSprite = Sprite.fromRenderedText(renderer, _fpsFont, s, {250, 250, 250})
-                        _fpsSprite.centered = false
-                    else
-                        _fpsSprite = Sprite.fromRenderedText(renderer, _fpsFont, "60.00", {250, 250, 250})
-                        _fpsSprite.centered = false
+
+                    if _fpsSprite != null do _fpsSprite = null
+                    _fpsSprite = Sprite.fromRenderedText(renderer, _fpsFont, "%2.2f".printf(_currentFps), {250, 250, 250})
+                    _fpsSprite.centered = false
 
                 //stdout.printf("%f\n", (_t2-_t1))
 
@@ -110,6 +115,11 @@ namespace Bosco
                 sprite.render(renderer, sprite.x, sprite.y)
 
             if showFps do _fpsSprite.render(renderer, 0, 0)
+
+            for var sprite in onetime  
+                sprite.render(renderer, sprite.x, sprite.y)
+                
+            onetime = new list of Sprite           
             renderer.present()
 
         def virtual Dispose()
