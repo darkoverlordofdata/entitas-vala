@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ShmupWarz
+GenericName=IDE
+Comment=Property of Bosco de Juego
+Icon=/home/bruce/Git/entitas-vala/build/res/images/fighter.png
+Exec=/home/bruce/Git/entitas-vala/build/Example
+NoDisplay=false
+Categories=GTK;Utility;
+Keywords=Juego;
+StartupNotify=false
+Terminal=false

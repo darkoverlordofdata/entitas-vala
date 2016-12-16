@@ -51,28 +51,29 @@ namespace ShmupWarz
         */
         def override Initialize():bool
             if super.Initialize()
+
                 arial = new Font("res/fonts/TitanOne-Regular.ttf", 20)
                 if arial == null
                     print "Failed to load font! SDL Error: %s", SDL.get_error()
 
 
-                world = new World(components)
-                world.add(new MovementSystem(this))
-                world.add(player = new PlayerInputSystem(this))
-                world.add(new SoundEffectSystem(this))
-                world.add(new CollisionSystem(this))
-                world.add(new ExpiringSystem(this))
-                world.add(new EntitySpawningTimerSystem(this))
-                world.add(new ColorTweenSystem(this))
-                world.add(new ScaleTweenSystem(this))
-                world.add(new RemoveOffscreenShipsSystem(this))
-                world.add(new ViewManagerSystem(this))
-                world.add(new RenderPositionSystem(this))
-                world.add(new HealthRenderSystem(this))
-                world.add(new HudRenderSystem(this))
-                world.add(new DestroySystem(this))
-                world.initialize()
-
+                world = new World(components
+                    ).add(new MovementSystem(this)
+                    ).add(player = new PlayerInputSystem(this)
+                    ).add(new SoundEffectSystem(this)
+                    ).add(new CollisionSystem(this)
+                    ).add(new ExpiringSystem(this)
+                    ).add(new EntitySpawningTimerSystem(this)
+                    ).add(new ColorTweenSystem(this)
+                    ).add(new ScaleTweenSystem(this)
+                    ).add(new RemoveOffscreenShipsSystem(this)
+                    ).add(new ViewManagerSystem(this)
+                    ).add(new RenderPositionSystem(this)
+                    ).add(new HealthRenderSystem(this)
+                    ).add(new HudRenderSystem(this)
+                    ).add(new DestroySystem(this)
+                    ).initialize()
+                
                 createBackground()
                 createPlayer()
 

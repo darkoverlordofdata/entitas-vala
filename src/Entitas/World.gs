@@ -221,9 +221,10 @@ namespace Entitas
         /**
          * Initialize Systems
          */
-        def initialize()
+        def initialize() : World
             for var sys in _initializeSystems
                 sys.initialize()
+            return this
 
         /**
          * Execute sustems

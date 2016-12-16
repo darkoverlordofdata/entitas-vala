@@ -6,4 +6,4 @@
  *
  * Explicitly reference GLib.Object if you need to use it.
  */
-public class Object {}
+//public class Object {}
