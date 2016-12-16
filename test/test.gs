@@ -3,7 +3,6 @@ enum Components
     MovementComponent
     ImageComponent
 
-
 class PositionComponent  : DarkMatter implements IComponent
     x:double
     y:double
@@ -40,3 +39,28 @@ class MovementSystem : DarkMatter implements ISystem, ISetWorld, IInitializeSyst
 
     def initialize()
         pass
+
+namespace Frodo
+    class ColorTweenComponent : Object implements IComponent 
+        redMin : double 
+        redMax : double 
+        redSpeed : double 
+        greenMin : double 
+        greenMax : double 
+        greenSpeed : double 
+        blueMin : double 
+        blueMax : double 
+        blueSpeed : double 
+        alphaMin : double 
+        alphaMax : double 
+        alphaSpeed : double 
+        redAnimate : bool 
+        greenAnimate : bool 
+        blueAnimate : bool 
+        alphaAnimate : bool 
+        repeat : bool 
+
+    /** @type ColorTween */
+    def getColorTween(e: Entity) : ColorTweenComponent
+            return (ColorTweenComponent)e.getComponent(Component.ColorTween)
+

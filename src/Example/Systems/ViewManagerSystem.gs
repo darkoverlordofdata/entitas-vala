@@ -48,18 +48,18 @@ namespace ShmupWarz
                 print "Failed to load %s", res.path
                 return
 
-            if e.hasScale
-                sprite.scale.x = e.scale.x
-                sprite.scale.y = e.scale.y
+            if hasScale(e)
+                sprite.scale.x = getScale(e).x
+                sprite.scale.y = getScale(e).y
 
-            if e.hasLayer
-                sprite.layer = e.layer.ordinal
-                ordinal = e.layer.ordinal
+            if hasLayer(e)
+                sprite.layer = getLayer(e).ordinal
+                ordinal = getLayer(e).ordinal
 
-            if e.hasTint
-                sprite.color.r = (uint8)e.tint.r
-                sprite.color.g = (uint8)e.tint.g
-                sprite.color.b = (uint8)e.tint.b
+            if hasTint(e)
+                sprite.color.r = (uint8)getTint(e).r
+                sprite.color.g = (uint8)getTint(e).g
+                sprite.color.b = (uint8)getTint(e).b
 
             if res.bgd
                 sprite.centered = false

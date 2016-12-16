@@ -27,7 +27,7 @@ namespace ShmupWarz
 
         def execute()
             for var entity in _group.getEntities()
-                case entity.soundEffect.effect
+                case getSoundEffect(entity).effect
                     when 0  //Effect.PEW
                         SDLMixer.play(-1, _pew)
                     when 1  //Effect.ASPLODE

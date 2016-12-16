@@ -45,7 +45,7 @@ namespace ShmupWarz
         */
         def moveTo(x : int, y : int)
             var entity = _group.getSingleEntity()
-            var pos = entity.position
+            var pos = getPosition(entity)
 
             pos.x = x
             pos.y = y
@@ -57,7 +57,7 @@ namespace ShmupWarz
         def execute()
             //try
             var entity = _group.getSingleEntity()
-            var pos = entity.position
+            var pos = getPosition(entity)
 
             if _mouseDefined
                 if _mouseDown || _game.keys[Input.Keycode.z] != 0

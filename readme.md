@@ -30,3 +30,13 @@ This means we need a different template, locally defined, to generate the code:
 ```
 $ entitas generate -p gs -t src/Example
 ```
+
+#### possibility:
+use a vapi to inline the Entity extensions.
+Components.gs => Components.vapi, a per game vapi extension of entitas.dll
+then there is no need for entity base.
+
+Can I change order with vapi?
+
+hasBounds(entity, component) to entity.hasBounds(component)?
+

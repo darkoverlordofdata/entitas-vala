@@ -21,8 +21,8 @@ namespace ShmupWarz
 
         def execute()
             for var entity in _group.getEntities()
-                var pos = entity.position
-                var vel = entity.velocity
+                var pos = getPosition(entity)
+                var vel = getVelocity(entity)
                 pos.x += (vel.x * _game.delta)
                 pos.y += (vel.y * _game.delta)
 

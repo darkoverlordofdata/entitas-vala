@@ -31,6 +31,7 @@ namespace ShmupWarz
 
         construct()
             super()
+            initializePools()
             name = "Shmup Warz"
             width = SCREEN_WIDTH
             height = SCREEN_HEIGHT

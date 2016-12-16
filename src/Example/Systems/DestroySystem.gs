@@ -25,8 +25,8 @@ namespace ShmupWarz
             res : ResourceComponent
 
             for var entity in _group.getEntities()
-                if entity.hasResource
-                    res = entity.resource
+                if hasResource(entity)
+                    res = getResource(entity)
                     for var i=0 to (_sprites.length-1)
                         var sprite = (Sprite)res.sprite
                         if _sprites[i].id == sprite.id

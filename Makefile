@@ -52,7 +52,7 @@ EXAMPLE=src/Object.vala \
 		src/Entitas/Interfaces/IComponent.vala \
 		src/Entitas/Interfaces/IMatcher.vala \
 		src/Entitas/Interfaces/ISystem.vala \
-		src/Entitas/EntityBase.gs \
+		src/Entitas/Entity.gs \
 		src/Entitas/Group.gs \
 		src/Entitas/Matcher.gs \
 		src/Entitas/World.gs \
@@ -81,8 +81,6 @@ EXAMPLE=src/Object.vala \
 # Build Entitas with Tests
 #
 TESTING=src/Object.vala \
-		src/Entitas/Utils/UUID.vala \
-		src/Entitas/Utils/Bag.gs \
 		src/Entitas/Exceptions.gs \
 		src/Entitas/Events/EntityReleased.gs \
 		src/Entitas/Events/ComponentReplaced.gs \
@@ -94,14 +92,14 @@ TESTING=src/Object.vala \
 		src/Entitas/Interfaces/IComponent.vala \
 		src/Entitas/Interfaces/ISystem.vala \
 		src/Entitas/Interfaces/IMatcher.vala \
-		src/Entitas/EntityBase.gs \
 		src/Entitas/Entity.gs \
 		src/Entitas/Group.gs \
 		src/Entitas/Matcher.gs \
-		src/Entitas/WorldBase.gs \
 		src/Entitas/World.gs \
+		src/Bosco/Color.gs \
 		src/Bosco/Sprite.gs \
 		src/Bosco/AbstractGame.gs \
+		src/Example/Components.gs \
 		test/Vunny.gs \
 		test/TestFX.gs
 

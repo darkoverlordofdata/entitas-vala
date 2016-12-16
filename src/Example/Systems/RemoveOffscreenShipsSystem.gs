@@ -21,10 +21,10 @@ namespace ShmupWarz
 
         def execute()
             for var entity in _group.getEntities()
-                if entity.hasComponent(Component.Position)
-                    if entity.position.y > _game.height - entity.bounds.radius
-                        if !entity.isPlayer
-                            entity.setDestroy(true)
+                if hasPosition(entity)
+                    if getPosition(entity).y > _game.height - getBounds(entity).radius
+                        if !isPlayer(entity)
+                            setDestroy(entity, true)
                             
 
 

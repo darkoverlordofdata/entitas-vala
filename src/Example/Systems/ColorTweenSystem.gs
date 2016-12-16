@@ -22,8 +22,8 @@ namespace ShmupWarz
         def execute()
             var delta = _game.delta
             for var entity in _group.getEntities()
-                var tint = entity.tint
-                var tween = entity.colorTween
+                var tint = getTint(entity)
+                var tween = getColorTween(entity)
                 
                 if tween.redAnimate
                     tint.r = tint.r + (int)((double)tween.redSpeed * delta)
@@ -57,7 +57,7 @@ namespace ShmupWarz
                         else
                             tween.alphaAnimate = false
 
-                var sprite = (Sprite)entity.resource.sprite
+                var sprite = (Sprite)getResource(entity).sprite
                 sprite.color.r = (uint8)tint.r
                 sprite.color.g = (uint8)tint.g
                 sprite.color.b = (uint8)tint.b

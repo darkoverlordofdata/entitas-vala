@@ -22,7 +22,7 @@ namespace ShmupWarz
 
         def execute()
             for var entity in _group.getEntities()
-                if (entity.expires.delay -= _game.delta) <= 0
-                    entity.setDestroy(true)
+                if (getExpires(entity).delay -= _game.delta) <= 0
+                    setDestroy(entity, true)
 
 

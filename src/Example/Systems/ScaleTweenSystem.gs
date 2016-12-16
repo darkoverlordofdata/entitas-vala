@@ -22,10 +22,10 @@ namespace ShmupWarz
         def execute()
             for var entity in _group.getEntities()
 
-                var scaleTween = entity.scaleTween
+                var scaleTween = getScaleTween(entity)
 
                 if scaleTween.active
-                    var res = entity.resource
+                    var res = getResource(entity)
                     var sprite = (Sprite)res.sprite
                     var scale = sprite.scale
 

@@ -28,9 +28,9 @@ namespace ShmupWarz
             sprite:Sprite = null
 
             for var entity in _group.getEntities()
-                var position = entity.position
-                var health = entity.health
-                var text = entity.text
+                var position = getPosition(entity)
+                var health = getHealth(entity)
+                var text = getText(entity)
                 var pct = "%d%%".printf((int)Math.fmin(100, health.health/health.maximumHealth*100.0))
 
                 if pct == text.text
