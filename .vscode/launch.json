@@ -5,9 +5,9 @@
             "name": "Debug",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceRoot}/build/Example",
+            "program": "/bin/sh",
             "cwd": "${workspaceRoot}/build",
-            "args": []
+            "args": ["-c", "export LD_LIBRARY_PATH=.. && ./game"]
         }
     ]
 }

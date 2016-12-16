@@ -29,14 +29,14 @@ CLIBS=-X -lm -X -lSDL2_image -X -lSDL2_ttf -X -lSDL2_mixer -X -lSDL2_gfx
 # reference the vala libs at /usr/share/vala/vapi
 #
 LIBS=--pkg glib-2.0 \
-		--pkg gobject-2.0 \
-		--pkg gee-0.8 \
-		--pkg sdl2 \
-		--pkg sdl2-gfx \
-		--pkg sdl2-image \
-		--pkg sdl2-ttf \
-		--pkg sdl2-mixer \
-		--pkg gio-2.0 
+	--pkg gobject-2.0 \
+	--pkg gee-0.8 \
+	--pkg sdl2 \
+	--pkg sdl2-gfx \
+	--pkg sdl2-image \
+	--pkg sdl2-ttf \
+	--pkg sdl2-mixer \
+	--pkg gio-2.0 
 
 ENTITASLIB=src/Object.vala \
 		src/Entitas/Exceptions.gs \
@@ -100,6 +100,26 @@ EXAMPLE=src/Object.vala \
 		src/Example/Systems/HudRenderSystem.gs \
 		src/Example/Game.gs
 
+SHMUPWARZ=src/Object.vala \
+		src/Example/Entities.gs \
+		src/Example/Components.gs \
+		src/Example/Systems/DestroySystem.gs \
+		src/Example/Systems/ColorTweenSystem.gs \
+		src/Example/Systems/ExpiringSystem.gs \
+		src/Example/Systems/MovementSystem.gs \
+		src/Example/Systems/RenderPositionSystem.gs \
+		src/Example/Systems/ViewManagerSystem.gs \
+		src/Example/Systems/PlayerInputSystem.gs \
+		src/Example/Systems/HealthRenderSystem.gs \
+		src/Example/Systems/EntitySpawningTimerSystem.gs \
+		src/Example/Systems/CollisionSystem.gs \
+		src/Example/Systems/RemoveOffscreenShipsSystem.gs \
+		src/Example/Systems/ScaleTweenSystem.gs \
+		src/Example/Systems/SoundEffectSystem.gs \
+		src/Example/Systems/HudRenderSystem.gs \
+		src/Example/Game.gs
+				
+
 #
 # Build Entitas with Tests
 #
@@ -130,12 +150,18 @@ TESTING=src/Object.vala \
 entitas: $(BIN)/entitas.so
 $(BIN)/entitas.so: $(ENTITASLIB)
 	-mkdir -p $(BIN)
-	$(CC) --library=entitas $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(ENTITASLIB) -H src/entitas.h --vapi=src/vapi/entitas.vapi -o $(BIN)/entitas.so
+	$(CC) --library=entitas $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(ENTITASLIB) -H src/vapi/entitas.h --vapi=src/vapi/entitas.vapi -o entitas.so
 
 bosco: $(BIN)/bosco.so
 $(BIN)/bosco.so: $(BOSCOLIB)
 	-mkdir -p $(BIN)
-	$(CC) --library=bosco $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(BOSCOLIB) -H src/bosco.h --vapi=src/vapi/bosco.vapi -o $(BIN)/bosco.so
+	$(CC) --library=bosco $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(BOSCOLIB) -H src/vapi/bosco.h --vapi=src/vapi/bosco.vapi -o bosco.so
+
+game: $(BIN)/game
+$(BIN)/game: $(SHMUPWARZ) 
+	-mkdir -p $(BIN)
+	cp -R --force $(RES) $(BIN)
+	$(CC) $(FLAGS) $(LIBS) --pkg bosco  --pkg entitas -X -Isrc/vapi -X entitas.so -X bosco.so $(CLIBS) $(CFLAGS) $(SHMUPWARZ) -o $(BIN)/game
 
 default: $(BIN)/$(NAME)
 $(BIN)/$(NAME): $(EXAMPLE) 
