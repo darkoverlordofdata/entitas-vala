@@ -37,6 +37,29 @@ LIBS=--pkg glib-2.0 \
 		--pkg sdl2-ttf \
 		--pkg sdl2-mixer \
 		--pkg gio-2.0 
+
+ENTITASLIB=src/Object.vala \
+		src/Entitas/Exceptions.gs \
+		src/Entitas/Events/EntityReleased.gs \
+		src/Entitas/Events/ComponentReplaced.gs \
+		src/Entitas/Events/EntityChanged.gs \
+		src/Entitas/Events/WorldChanged.gs \
+		src/Entitas/Events/GroupsChanged.gs \
+		src/Entitas/Events/GroupChanged.gs \
+		src/Entitas/Events/GroupUpdated.gs \
+		src/Entitas/Interfaces/IComponent.vala \
+		src/Entitas/Interfaces/IMatcher.vala \
+		src/Entitas/Interfaces/ISystem.vala \
+		src/Entitas/Entity.gs \
+		src/Entitas/Group.gs \
+		src/Entitas/Matcher.gs \
+		src/Entitas/World.gs 
+
+BOSCOLIB=src/Object.vala \
+		src/Bosco/Color.gs \
+		src/Bosco/Sprite.gs \
+		src/Bosco/AbstractGame.gs 
+
 #
 # Build Entitas with generated code Example
 #
@@ -104,7 +127,15 @@ TESTING=src/Object.vala \
 		test/TestFX.gs
 
 
+entitas: $(BIN)/entitas.so
+$(BIN)/entitas.so: $(ENTITASLIB)
+	-mkdir -p $(BIN)
+	$(CC) --library=entitas $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(ENTITASLIB) -H src/entitas.h --vapi=src/vapi/entitas.vapi -o $(BIN)/entitas.so
 
+bosco: $(BIN)/bosco.so
+$(BIN)/bosco.so: $(BOSCOLIB)
+	-mkdir -p $(BIN)
+	$(CC) --library=bosco $(FLAGS) $(LIBS) $(CLIBS) $(CFLAGS) -X -fPIC -X -shared $(BOSCOLIB) -H src/bosco.h --vapi=src/vapi/bosco.vapi -o $(BIN)/bosco.so
 
 default: $(BIN)/$(NAME)
 $(BIN)/$(NAME): $(EXAMPLE) 
